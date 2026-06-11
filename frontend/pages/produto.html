@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vestido Floral Midi Anos 70 — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-produto.css">
+</head>
+<body>
+
+<!-- ── CABEÇALHO ── -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🪡</div>
+      <span class="logo-text">Gari<span>mpo</span></span>
+    </a>
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="Buscar peças, marcas, estilos…">
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" title="Favoritos">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="badge">3</span>
+      </button>
+      <button class="icon-btn" title="Sacola">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="badge">1</span>
+      </button>
+      <button class="icon-btn" title="Conta">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <button class="btn-sell">+ Vender</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── BREADCRUMB ── -->
+<nav class="breadcrumb">
+  <a href="index.html">Início</a>
+  <span>›</span>
+  <a href="#">Vestidos</a>
+  <span>›</span>
+  <span>Vestido Floral Midi Anos 70</span>
+</nav>
+
+<!-- ── CONTEÚDO PRINCIPAL ── -->
+<div class="product-page">
+
+  <!-- GALERIA -->
+  <div class="gallery">
+    <div class="gallery-main" id="mainImg">
+      <span id="mainEmoji">👗</span>
+      <span class="gallery-main-badge">Ótimo estado</span>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="thumb active" onclick="selectThumb(this, '👗')">👗</div>
+      <div class="thumb" onclick="selectThumb(this, '🌸')">🌸</div>
+      <div class="thumb" onclick="selectThumb(this, '🪡')">🪡</div>
+      <div class="thumb" onclick="selectThumb(this, '📐')">📐</div>
+    </div>
+  </div>
+
+  <!-- DETALHES -->
+  <div class="product-details">
+
+    <div class="detail-category">Vestidos · Feminino</div>
+    <h1 class="detail-title">Vestido Floral Midi Anos 70</h1>
+
+    <!-- PREÇO -->
+    <div class="price-row">
+      <span class="price-main">R$ 75</span>
+      <span class="price-original">R$ 120</span>
+      <span class="price-installment">3x R$ 25 sem juros</span>
+    </div>
+
+    <!-- ATRIBUTOS: informações fixas, não selecionáveis -->
+    <div class="attrs">
+      <div class="attr">
+        <span class="attr-label">Tamanho</span>
+        <span class="attr-value" id="attrTamanho">P</span>
+      </div>
+      <div class="attr">
+        <span class="attr-label">Marca</span>
+        <span class="attr-value" id="attrMarca">Sem marca</span>
+      </div>
+      <div class="attr">
+        <span class="attr-label">Material</span>
+        <span class="attr-value" id="attrMaterial">Viscose</span>
+      </div>
+      <div class="attr">
+        <span class="attr-label">Cor</span>
+        <span class="attr-value" id="attrCor">Floral terracota</span>
+      </div>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="action-buttons">
+      <button class="btn-buy">Comprar agora</button>
+      <button class="btn-cart">Adicionar à sacola</button>
+      <button class="btn-wish" id="wishBtn">🤍</button>
+    </div>
+
+    <!-- FRETE -->
+    <div class="shipping-row">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="1" y="3" width="15" height="13" rx="1"/>
+        <path d="M16 8h4l3 5v3h-7V8z"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+      <span><strong>Frete grátis</strong> · entrega estimada em 3–7 dias úteis</span>
+    </div>
+
+    <!-- DESCRIÇÃO -->
+    <div class="description-block">
+      <p id="descricao">
+        Vestido midi com estampa floral em tons terrosos e ocre, típico do estilo boho dos anos 70.
+        Tecido leve de viscose com caimento fluido, decote em V e mangas longas com barra rendada.
+        Peça rara, encontrada em brechó em São Paulo. Sem marcas de uso visíveis, cor bem preservada.
+      </p>
+      <div class="tags">
+        <a href="#" class="tag">#anos70</a>
+        <a href="#" class="tag">#floral</a>
+        <a href="#" class="tag">#boho</a>
+        <a href="#" class="tag">#vintage</a>
+        <a href="#" class="tag">#midi</a>
+        <a href="#" class="tag">#viscose</a>
+      </div>
+    </div>
+
+    <!-- VENDEDOR -->
+    <div class="seller-block">
+      <div class="seller-block-avatar">👩</div>
+      <div>
+        <div class="seller-block-name">Closet da Jú</div>
+        <div class="seller-block-meta">⭐ 4.9 · 142 vendas · desde 2022</div>
+      </div>
+      <button class="btn-seller">Ver perfil →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── RELACIONADOS ── -->
+<div class="related-section">
+  <div class="section-header">
+    <h2 class="section-title">Você também pode <span>gostar</span></h2>
+    <a href="#" class="see-all">Ver mais →</a>
+  </div>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="carousel-track">
+
+      <div class="product-card">
+        <div class="product-img" style="background:#F0E6D3;">🧥
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Casacos</div>
+          <div class="product-name">Trench coat bege vintage</div>
+          <div class="product-seller">por @modaretrô</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 129</span>
+            <span class="product-size">M</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#E8D5C4;">👒
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Chapéus</div>
+          <div class="product-name">Chapéu palha boho anos 70</div>
+          <div class="product-seller">por @hat_heaven</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 48</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#DDD9E8;">💍
+          <span class="product-badge">Único</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Acessórios</div>
+          <div class="product-name">Colar étnico dourado</div>
+          <div class="product-seller">por @bijouretro</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 38</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#D9E8D3;">👗
+          <span class="product-badge green">Ótimo estado</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Vestidos</div>
+          <div class="product-name">Vestido maxi estampado</div>
+          <div class="product-seller">por @closetdajú</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 92</span>
+            <span class="product-size">M</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#F2EAD3;">🧣
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Acessórios</div>
+          <div class="product-name">Lenço seda floral</div>
+          <div class="product-seller">por @vintagevibe</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 29</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ── RODAPÉ ── -->
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  // Lê parâmetros da URL e preenche os atributos da página
+  // Exemplo de uso: produto.html?tamanho=M&marca=Zara&material=Linho&cor=Azul+marinho
+  const params = new URLSearchParams(window.location.search);
+
+  const campos = {
+    tamanho:  'attrTamanho',
+    marca:    'attrMarca',
+    material: 'attrMaterial',
+    cor:      'attrCor',
+  };
+
+  for (const [param, id] of Object.entries(campos)) {
+    const val = params.get(param);
+    if (val) document.getElementById(id).textContent = val;
+  }
+
+  // Troca imagem principal ao clicar na thumbnail
+  function selectThumb(el, emoji) {
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('mainEmoji').textContent = emoji;
+  }
+
+  // Toggle favorito
+  const wishBtn = document.getElementById('wishBtn');
+  wishBtn.addEventListener('click', () => {
+    const liked = wishBtn.textContent === '❤️';
+    wishBtn.textContent = liked ? '🤍' : '❤️';
+    wishBtn.style.transform = 'scale(1.2)';
+    setTimeout(() => wishBtn.style.transform = '', 200);
+  });
+</script>
+</body>
+</html>

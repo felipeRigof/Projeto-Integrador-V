@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anunciar — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-login.css">
+  <link rel="stylesheet" href="style-anunciar.css">
+</head>
+<body>
+
+<!-- ── CABEÇALHO MINIMALISTA ── -->
+<header class="auth-header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🪡</div>
+    <span class="logo-text">Gari<span>mpo</span></span>
+  </a>
+</header>
+
+<!-- ── CONTEÚDO ── -->
+<main class="form-main">
+
+  <div class="form-header">
+    <h1 class="form-title">Nova peça</h1>
+    <p class="form-sub">Preencha as informações abaixo para anunciar</p>
+  </div>
+
+  <form class="form-body" id="form-anunciar">
+
+    <!-- FOTOS -->
+    <section class="form-section">
+      <h2 class="form-section-title">Fotos</h2>
+      <div class="upload-grid">
+        <label class="upload-main" for="foto-principal">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>Foto principal</span>
+          <span class="upload-hint">clique para adicionar</span>
+          <input type="file" id="foto-principal" accept="image/*" hidden>
+        </label>
+        <label class="upload-extra" for="foto-2"><span>+</span><input type="file" id="foto-2" accept="image/*" hidden></label>
+        <label class="upload-extra" for="foto-3"><span>+</span><input type="file" id="foto-3" accept="image/*" hidden></label>
+        <label class="upload-extra" for="foto-4"><span>+</span><input type="file" id="foto-4" accept="image/*" hidden></label>
+      </div>
+      <p class="field-hint">Adicione até 4 fotos. A primeira será a capa do anúncio.</p>
+    </section>
+
+    <div class="form-divider"></div>
+
+    <!-- INFORMAÇÕES BÁSICAS -->
+    <section class="form-section">
+      <h2 class="form-section-title">Informações</h2>
+
+      <div class="fields">
+
+        <div class="field">
+          <label for="titulo">Título do anúncio</label>
+          <input type="text" id="titulo" placeholder="Ex: Jaqueta jeans azul anos 90">
+        </div>
+
+        <div class="field">
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" rows="4" placeholder="Conte sobre a peça: estado, medidas, história, tecido…"></textarea>
+        </div>
+
+        <div class="fields-row">
+          <div class="field">
+            <label for="categoria">Categoria</label>
+            <select id="categoria">
+              <option value="" disabled selected>Selecione</option>
+              <option>Roupas</option>
+              <option>Calçados</option>
+              <option>Brinquedos</option>
+              <option>Livros</option>
+              <option>Acessórios</option>
+              <option>Decoração</option>
+              <option>Eletrônicos</option>
+              <option>Móveis</option>
+              <option>Outros</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="condicao">Condição</label>
+            <select id="condicao">
+              <option value="" disabled selected>Selecione</option>
+              <option>Novo</option>
+              <option>Ótimo estado</option>
+              <option>Bom estado</option>
+              <option>Com marcas de uso</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="fields-row">
+          <div class="field">
+            <label for="tamanho">Tamanho <span class="label-opt">opcional</span></label>
+            <input type="text" id="tamanho" placeholder="Ex: M, 38, 42, único…">
+          </div>
+
+          <div class="field">
+            <label for="marca">Marca <span class="label-opt">opcional</span></label>
+            <input type="text" id="marca" placeholder="Ex: Zara, sem marca…">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="form-divider"></div>
+
+    <!-- PREÇO E FRETE -->
+    <section class="form-section">
+      <h2 class="form-section-title">Preço e entrega</h2>
+
+      <div class="fields">
+
+        <div class="fields-row">
+          <div class="field">
+            <label for="preco">Preço (R$)</label>
+            <input type="number" id="preco" placeholder="0,00" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="cep">CEP de origem</label>
+            <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Forma de envio</label>
+          <div class="radio-group">
+            <label class="radio-opt">
+              <input type="radio" name="envio" value="correios" checked>
+              <span>Correios (etiqueta gerada automaticamente)</span>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="envio" value="combinar">
+              <span>Combinar com o comprador</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="form-divider"></div>
+
+    <!-- AÇÕES -->
+    <div class="form-actions">
+      <button type="button" class="btn-preview">Pré-visualizar</button>
+      <button type="submit" class="btn-publish">Publicar anúncio</button>
+    </div>
+
+  </form>
+</main>
+
+<script src="main.js"></script>
+<script>
+  const API = 'http://localhost:3000';
+
+  // ── PROTEÇÃO: redireciona se não estiver logado ──
+  const token = localStorage.getItem('token');
+  if (!token) window.location.href = 'login.html';
+
+  // ── CARREGAR CATEGORIAS DO BACKEND ──
+  async function carregarCategorias() {
+    try {
+      const res  = await fetch(`${API}/categorias`);
+      const data = await res.json();
+      const select = document.getElementById('categoria');
+
+      // limpa opções estáticas mantendo o placeholder
+      select.innerHTML = '<option value="" disabled selected>Selecione</option>';
+
+      data.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat.id;        // envia categoria_id para o backend
+        opt.textContent = cat.nome;
+        select.appendChild(opt);
+      });
+    } catch (err) {
+      console.error('Erro ao carregar categorias:', err);
+    }
+  }
+
+  carregarCategorias();
+
+  // ── PREVIEW DE IMAGEM ──
+  document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      const label = this.closest('label');
+      const reader = new FileReader();
+      reader.onload = e => {
+        label.style.backgroundImage = `url(${e.target.result})`;
+        label.style.backgroundSize = 'cover';
+        label.style.backgroundPosition = 'center';
+        label.querySelectorAll('span, svg').forEach(el => el.style.opacity = '0');
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  // ── MÁSCARA CEP ──
+  document.getElementById('cep').addEventListener('input', function () {
+    let v = this.value.replace(/\D/g, '').slice(0, 8);
+    if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
+    this.value = v;
+  });
+
+  // ── ERRO ──
+  function showError(msg) {
+    let el = document.getElementById('form-error');
+    if (!el) {
+      el = document.createElement('p');
+      el.id = 'form-error';
+      el.style.cssText = 'color:#c0392b;font-size:0.82rem;margin-top:0.5rem';
+      document.querySelector('.form-actions').prepend(el);
+    }
+    el.textContent = msg;
+  }
+
+  // ── ENVIO DO FORMULÁRIO ──
+  document.getElementById('form-anunciar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = document.querySelector('.btn-publish');
+    btn.textContent = 'Publicando…';
+    btn.disabled = true;
+
+    const title       = document.getElementById('titulo').value.trim();
+    const description = document.getElementById('descricao').value.trim();
+    const categoria_id = document.getElementById('categoria').value;
+    const conditions  = document.getElementById('condicao').value;
+    const type        = document.getElementById('tamanho').value.trim();
+    const price       = document.getElementById('preco').value;
+
+    // Validações básicas
+    if (!title || !categoria_id || !conditions || !price) {
+      showError('Preencha título, categoria, condição e preço.');
+      btn.textContent = 'Publicar anúncio';
+      btn.disabled = false;
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API}/produtos`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          category: document.getElementById('categoria').selectedOptions[0]?.text,
+          conditions,
+          type,
+          price: parseFloat(price),
+          categoria_id: parseInt(categoria_id)
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showError(data.error || 'Erro ao publicar anúncio');
+        return;
+      }
+
+      // Sucesso → vai para a página do produto criado
+      window.location.href = `produto.html?id=${data.produto.id}`;
+
+    } catch (err) {
+      showError('Não foi possível conectar ao servidor');
+    } finally {
+      btn.textContent = 'Publicar anúncio';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

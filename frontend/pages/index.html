@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garimpo — Brechó & Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── CABEÇALHO ── -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🪡</div>
+      <span class="logo-text">Gari<span>mpo</span></span>
+    </a>
+
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="Buscar peças, marcas, estilos…">
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" title="Favoritos">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="badge">3</span>
+      </button>
+      <button class="icon-btn" title="Sacola">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="badge">1</span>
+      </button>
+      <button class="icon-btn" title="Conta">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <a href="anunciar.html" class="btn-sell">+ Vender</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── NAVEGAÇÃO POR CATEGORIA ── -->
+<nav class="nav-strip">
+  <div class="nav-strip-inner">
+    <a href="#" class="nav-link active">Tudo</a>
+    <a href="#" class="nav-link">Roupas</a>
+    <a href="#" class="nav-link">Calçados</a>
+    <a href="#" class="nav-link">Brinquedos</a>
+    <a href="#" class="nav-link">Livros</a>
+    <a href="#" class="nav-link">Acessórios</a>
+    <a href="#" class="nav-link">Decoração</a>
+    <a href="#" class="nav-link">Eletrônicos</a>
+    <a href="#" class="nav-link">Móveis</a>
+    <a href="#" class="nav-link">Outros</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        Peças com<br><em>história</em> esperando<br>por você
+      </h1>
+      <p class="hero-sub">
+        Descubra tesouros únicos de vendedores em todo o Brasil. Compre, venda e dê nova vida ao que tem valor.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-primary">Explorar agora</button>
+        <button class="btn-outline">Quero vender</button>
+      </div>
+    </div>
+
+    <!-- hero-visual: desativado até ter imagens reais
+    <div class="hero-visual">
+      <div class="card-stack">
+        <div class="stack-card">
+          <div class="card-inner">
+            <div class="card-label">Jaqueta</div>
+            <div class="card-price">R$ 89</div>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="card-inner">
+            <div class="card-label">Bolsa vintage</div>
+            <div class="card-price">R$ 145</div>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="card-emoji">👗</div>
+        </div>
+      </div>
+    </div>
+    -->
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── DESTAQUES ── -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Em <span>destaque</span> hoje</h2>
+    <a href="#" class="see-all">Ver todos →</a>
+  </div>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="carousel-track">
+
+      <div class="product-card">
+        <div class="product-img" style="background: #F0E6D3;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Casacos</div>
+          <div class="product-name">Trench coat bege vintage</div>
+          <div class="product-seller">por @modaretrô</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 129</span>
+            <span class="product-size">M</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #E8D5C4;">
+          <!-- imagem do produto -->
+          <span class="product-badge green">Ótimo estado</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Vestidos</div>
+          <div class="product-name">Vestido floral midi anos 70</div>
+          <div class="product-seller">por @closetdajú</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 75</span>
+            <span class="product-size">P</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #D9E8D3;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Popular</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Bolsas</div>
+          <div class="product-name">Bolsa de couro marrom</div>
+          <div class="product-seller">por @ateliêsecond</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 210</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #E8D9D9;">
+          <!-- imagem do produto -->
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Calçados</div>
+          <div class="product-name">Tênis branco clássico 90s</div>
+          <div class="product-seller">por @garimpeiros</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 95</span>
+            <span class="product-size">38</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #DDD9E8;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Único</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Acessórios</div>
+          <div class="product-name">Colar dourado art déco</div>
+          <div class="product-seller">por @bijouretro</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 42</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #E8E4D3;">
+          <!-- imagem do produto -->
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Óculos</div>
+          <div class="product-name">Óculos gatinho tartaruga</div>
+          <div class="product-seller">por @vintagevibe</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 55</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ── DIFERENCIAIS ── -->
+<div class="banner-strip">
+  <div class="banner-inner">
+    <div class="banner-feature">
+      <div class="feature-icon">🔒</div>
+      <div>
+        <div class="feature-title">Compra protegida</div>
+        <div class="feature-desc">Seu dinheiro fica seguro até você confirmar o recebimento</div>
+      </div>
+    </div>
+    <div class="banner-feature">
+      <div class="feature-icon">🚚</div>
+      <div>
+        <div class="feature-title">Frete facilitado</div>
+        <div class="feature-desc">Etiqueta gerada automaticamente para o vendedor</div>
+      </div>
+    </div>
+    <div class="banner-feature">
+      <div class="feature-icon">♻️</div>
+      <div>
+        <div class="feature-title">Moda circular</div>
+        <div class="feature-desc">Cada peça vendida evita descarte e reduz impacto ambiental</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NOVIDADES ── -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Chegando <span>agora</span></h2>
+    <a href="#" class="see-all">Ver todos →</a>
+  </div>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="carousel-track">
+
+      <div class="product-card">
+        <div class="product-img" style="background: #F2EAD3;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Acessórios</div>
+          <div class="product-name">Cachecol de lã xadrez</div>
+          <div class="product-seller">por @lanostyle</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 38</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #D3E8F2;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Calças</div>
+          <div class="product-name">Calça jeans wide leg</div>
+          <div class="product-seller">por @denimlovers</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 88</span>
+            <span class="product-size">40</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #F2D3D3;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Chapéus</div>
+          <div class="product-name">Chapéu fedora creme</div>
+          <div class="product-seller">por @hat_heaven</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 65</span>
+            <span class="product-size">M</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #D3F2E0;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Calçados</div>
+          <div class="product-name">Oxford preto tamanho 41</div>
+          <div class="product-seller">por @sapataria2nd</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 112</span>
+            <span class="product-size">41</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: #EDD3F2;">
+          <!-- imagem do produto -->
+          <span class="product-badge">Novo</span>
+          <button class="wishlist-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Bolsas</div>
+          <div class="product-name">Pochete cinza urban</div>
+          <div class="product-seller">por @urbanreuse</div>
+          <div class="product-footer">
+            <span class="product-price">R$ 49</span>
+            <span class="product-size">Único</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── NEWSLETTER ── -->
+<div class="newsletter">
+  <div class="newsletter-inner">
+    <h3>Não perca nenhum <em>garimpo</em></h3>
+    <p>Receba alertas de novas peças das suas categorias favoritas direto no e-mail.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="seu@email.com">
+      <button class="btn-primary">Quero receber</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── RODAPÉ ── -->
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

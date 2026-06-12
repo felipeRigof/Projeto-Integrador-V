@@ -68,12 +68,12 @@ const listaReview = async(req,res) => {
                         id: true,
                         nome: true
                     }
-                },
+                }
+            },
 
-                orderBy: {
+            orderBy: {
                     created_at: 'desc'
                 }
-            }
         });
 
         const media = avaliacao.length > 0 ? avaliacao.reduce((acc, av) => acc + av.rating, 0) / avaliacao.length : 0;

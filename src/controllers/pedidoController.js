@@ -87,7 +87,7 @@ const buscarPedido = async(req, res) => {
                     }
                 },
 
-                users: {
+                comprador: {
                     select: {
                         id: true,
                         nome: true,

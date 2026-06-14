@@ -41,6 +41,10 @@
         </label>
         <input type="password" id="senha-login" placeholder="••••••••" autocomplete="current-password">
       </div>
+      <div class="field">
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" placeholder="(11) 99999-9999">
+      </div>
       <button type="submit" class="btn-auth">Entrar</button>
     </form>
 
@@ -165,9 +169,10 @@
     btn.textContent = 'Criando conta…';
     btn.disabled = true;
 
-    const nome     = document.getElementById('nome').value.trim();
-    const email    = document.getElementById('email-cadastro').value.trim();
-    const password = document.getElementById('senha-cadastro').value;
+    const nome         = document.getElementById('nome').value.trim();
+    const email        = document.getElementById('email-cadastro').value.trim();
+    const password     = document.getElementById('senha-cadastro').value;
+    const num_telefone = document.getElementById('telefone').value.trim();
 
     if (password.length < 8) {
       showError('A senha deve ter pelo menos 8 caracteres');
@@ -180,7 +185,7 @@
       const res  = await fetch(`${API}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, email, password })
+        body: JSON.stringify({ nome, email, password, telefone })
       });
 
       const data = await res.json();

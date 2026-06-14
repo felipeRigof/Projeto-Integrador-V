@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id            Int       @id @default(autoincrement())
+  nome          String    @db.VarChar(100)
+  email         String    @unique @db.VarChar(150)
+  password_hash String
+  city          String?   @db.VarChar(100)
+  num_telefone  String?   @db.VarChar(20)
+  created_at    DateTime  @default(now())
+
+  produtos             produto[]
+  pedidos              pedido[]
+  mensagens_enviadas   messages[]  @relation("sender")
+  mensagens_recebidas  messages[]  @relation("receiver")
+  avaliacoes_feitas    review[]    @relation("reviewer")
+  avaliacoes_recebidas review[]    @relation("reviewed")
+  favoritos            favoritos[]
+  notificacoes         notificacao[]
+}
+
+
+model categorias {
+  id       Int       @id @default(autoincrement())
+  nome     String    @unique @db.VarChar(50)
+  produtos produto[]
+}
+
+model produto {
+  id          Int          @id @default(autoincrement())
+  user_id     Int?
+  categoria_id Int?
+  title       String       @db.VarChar(150)
+  description String?
+  category    String?      @db.VarChar(50)
+  conditions  String?      @db.VarChar(50)
+  type        String?      @db.VarChar(20)
+  price       Decimal?     @db.Decimal(8, 2)
+  status      String?      @default("disponível") @db.VarChar(50)
+  created_at  DateTime     @default(now())
+
+  user        users?       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  categoria   categorias?  @relation(fields: [categoria_id], references: [id])
+  imagens     produto_img[]
+  pedidos     pedido[]
+  mensagens   messages[]
+  favoritos   favoritos[]
+}
+
+model produto_img {
+  id         Int     @id @default(autoincrement())
+  prdutos_id Int?
+  image_url  String
+
+  produto    produto? @relation(fields: [prdutos_id], references: [id], onDelete: Cascade)
+}
+
+model pedido {
+  id           Int       @id @default(autoincrement())
+  comprador_id Int?
+  produto_id   Int?
+  status       String?   @default("Pendente") @db.VarChar(20)
+  total        Decimal?  @db.Decimal(8, 2)
+  created_at   DateTime  @default(now())
+
+  comprador    users?    @relation(fields: [comprador_id], references: [id])
+  produto      produto?  @relation(fields: [produto_id], references: [id])
+  reviews      review[]
+}
+
+model messages {
+  id          Int       @id @default(autoincrement())
+  sender_id   Int?
+  receiver_id Int?
+  produto_id  Int?
+  conteudo    String
+  read        Boolean   @default(false)
+  created_at  DateTime  @default(now())
+
+  sender      users?    @relation("sender", fields: [sender_id], references: [id], onDelete: Cascade)
+  receiver    users?    @relation("receiver", fields: [receiver_id], references: [id], onDelete: Cascade)
+  produto     produto?  @relation(fields: [produto_id], references: [id], onDelete: Cascade)
+}
+
+model review {
+  id          Int       @id @default(autoincrement())
+  reviewer_id Int?
+  reviewed_id Int?
+  pedido_id   Int?
+  rating      Int?
+  comentario     String?
+  created_at  DateTime  @default(now())
+
+  reviewer    users?    @relation("reviewer", fields: [reviewer_id], references: [id])
+  reviewed    users?    @relation("reviewed", fields: [reviewed_id], references: [id])
+  pedido      pedido?   @relation(fields: [pedido_id], references: [id])
+}
+
+model notificacao {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  tipo       String?   @db.VarChar(400)
+  mensagem   String?
+  lido       Boolean   @default(false)
+  created_at DateTime  @default(now())
+
+  user       users?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model favoritos {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  produto_id Int?
+  created_at DateTime  @default(now())
+
+  user       users?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  produto    produto?  @relation(fields: [produto_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, produto_id])
+}

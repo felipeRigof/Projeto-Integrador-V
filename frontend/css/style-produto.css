@@ -1,0 +1,191 @@
+/* ── PRODUTO ── */
+.breadcrumb {
+  max-width: 1280px; margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; color: var(--text-muted);
+}
+
+.breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--terracotta); }
+.breadcrumb span { opacity: 0.4; }
+
+.product-page {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 2rem 6rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+
+/* GALERIA */
+.gallery { position: sticky; top: 84px; }
+
+.gallery-main {
+  aspect-ratio: 1;
+  background: var(--cream); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10rem;
+  margin-bottom: 0.75rem; overflow: hidden;
+  position: relative;
+}
+
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+
+.gallery-main-badge {
+  position: absolute; top: 14px; left: 14px;
+  background: var(--sage); color: white;
+  font-size: 0.68rem; font-weight: 600;
+  padding: 0.25rem 0.65rem; border-radius: 50px;
+  letter-spacing: 0.04em;
+}
+
+.gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+
+.thumb {
+  aspect-ratio: 1; background: var(--cream); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  border: 1.5px solid transparent; cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s; opacity: 0.6;
+  overflow: hidden;
+}
+
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumb:hover { opacity: 1; }
+.thumb.active { border-color: var(--terracotta); opacity: 1; }
+
+/* DETALHES */
+.product-details { padding-top: 0.25rem; }
+
+.detail-category {
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+
+.detail-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem; font-weight: 700;
+  color: var(--text-main); line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.price-row {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  margin-bottom: 2rem; padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.price-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 700; color: var(--terracotta);
+}
+
+.price-original { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; }
+.price-installment { font-size: 0.78rem; color: var(--text-muted); margin-left: auto; }
+
+.attrs { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.attr { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.attr-label {
+  font-size: 0.65rem; font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+.attr-value {
+  font-size: 0.88rem; font-weight: 500;
+  color: var(--text-main);
+  background: var(--cream);
+  padding: 0.3rem 0.75rem; border-radius: 6px;
+}
+
+.action-buttons { display: flex; gap: 0.6rem; margin-bottom: 2rem; }
+
+.btn-buy {
+  flex: 1; padding: 0.9rem;
+  background: var(--terracotta); color: white;
+  border: none; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+
+.btn-buy:hover { background: var(--terracotta-light); transform: translateY(-1px); }
+
+.btn-cart {
+  flex: 1; padding: 0.9rem;
+  background: transparent; color: var(--terracotta);
+  border: 1.5px solid var(--terracotta); border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+
+.btn-cart:hover { background: var(--terracotta); color: white; }
+
+.btn-wish {
+  width: 48px; height: 48px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s; flex-shrink: 0;
+}
+
+.btn-wish:hover { border-color: var(--terracotta); transform: scale(1.05); }
+
+.shipping-row {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.82rem; color: var(--text-muted);
+  margin-bottom: 2rem; padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.shipping-row svg { color: var(--sage); flex-shrink: 0; }
+.shipping-row strong { color: var(--text-main); }
+
+.description-block { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.description-block p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.9; }
+
+.tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1rem; }
+
+.tag {
+  font-size: 0.7rem; color: var(--text-muted);
+  background: var(--cream); padding: 0.2rem 0.6rem;
+  border-radius: 50px; text-decoration: none;
+  transition: color 0.2s;
+}
+
+.tag:hover { color: var(--terracotta); }
+
+.seller-block { display: flex; align-items: center; gap: 1rem; }
+
+.seller-block-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; flex-shrink: 0; overflow: hidden;
+}
+
+.seller-block-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.seller-block-name { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
+.seller-block-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+.btn-seller {
+  margin-left: auto; padding: 0.5rem 1rem;
+  border-radius: 8px; border: 1.5px solid var(--border);
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 500;
+  color: var(--text-muted); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s; white-space: nowrap;
+}
+
+.btn-seller:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+.related-section {
+  max-width: 1280px; margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+  border-top: 1px solid var(--border);
+}

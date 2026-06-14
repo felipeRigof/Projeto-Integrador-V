@@ -5,171 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Garimpo — Brechó & Marketplace</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-<!-- ── CABEÇALHO ── -->
 <header>
   <div class="header-inner">
-    <a href="#" class="logo">
+    <a href="index.html" class="logo">
       <div class="logo-icon">🪡</div>
       <span class="logo-text">Gari<span>mpo</span></span>
     </a>
-
     <div class="search-bar">
       <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
-      <input type="text" placeholder="Buscar peças, marcas, estilos…">
+      <input type="text" id="search-input" placeholder="Buscar peças, marcas, estilos…">
     </div>
-
     <div class="header-actions">
-      <button class="icon-btn" title="Favoritos">
+      <button class="icon-btn" id="btn-account" title="Conta">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-        <span class="badge">3</span>
-      </button>
-      <button class="icon-btn" title="Sacola">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <span class="badge">1</span>
-      </button>
-      <button class="icon-btn" title="Conta">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
       </button>
-      <a href="anunciar.html" class="btn-sell">+ Vender</a>
+      <a href="anunciar.html" id="btn-sell" class="btn-sell">+ Vender</a>
     </div>
   </div>
 </header>
 
-<!-- ── NAVEGAÇÃO POR CATEGORIA ── -->
 <nav class="nav-strip">
   <div class="nav-strip-inner">
-    <a href="#" class="nav-link active">Tudo</a>
-    <a href="#" class="nav-link">Roupas</a>
-    <a href="#" class="nav-link">Calçados</a>
-    <a href="#" class="nav-link">Brinquedos</a>
-    <a href="#" class="nav-link">Livros</a>
-    <a href="#" class="nav-link">Acessórios</a>
-    <a href="#" class="nav-link">Decoração</a>
-    <a href="#" class="nav-link">Eletrônicos</a>
-    <a href="#" class="nav-link">Móveis</a>
-    <a href="#" class="nav-link">Outros</a>
+    <a href="#" class="nav-link active" data-cat="">Tudo</a>
+    <a href="#" class="nav-link" data-cat="Roupas">Roupas</a>
+    <a href="#" class="nav-link" data-cat="Calçados">Calçados</a>
+    <a href="#" class="nav-link" data-cat="Brinquedos">Brinquedos</a>
+    <a href="#" class="nav-link" data-cat="Livros">Livros</a>
+    <a href="#" class="nav-link" data-cat="Acessórios">Acessórios</a>
+    <a href="#" class="nav-link" data-cat="Decoração">Decoração</a>
+    <a href="#" class="nav-link" data-cat="Eletrônicos">Eletrônicos</a>
+    <a href="#" class="nav-link" data-cat="Móveis">Móveis</a>
+    <a href="#" class="nav-link" data-cat="Outros">Outros</a>
   </div>
 </nav>
 
-<!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-text">
-      <h1 class="hero-title">
-        Peças com<br><em>história</em> esperando<br>por você
-      </h1>
-      <p class="hero-sub">
-        Descubra tesouros únicos de vendedores em todo o Brasil. Compre, venda e dê nova vida ao que tem valor.
-      </p>
+      <h1 class="hero-title">Peças com<br><em>história</em> esperando<br>por você</h1>
+      <p class="hero-sub">Descubra tesouros únicos de vendedores em todo o Brasil. Compre, venda e dê nova vida ao que tem valor.</p>
       <div class="hero-cta">
-        <button class="btn-primary">Explorar agora</button>
-        <button class="btn-outline">Quero vender</button>
+        <button class="btn-primary" onclick="document.querySelector('.section').scrollIntoView({behavior:'smooth'})">Explorar agora</button>
+        <a href="anunciar.html" class="btn-outline" style="text-decoration:none;display:inline-flex;align-items:center;">Quero vender</a>
       </div>
     </div>
-
-    <!-- hero-visual: desativado até ter imagens reais
-    <div class="hero-visual">
-      <div class="card-stack">
-        <div class="stack-card">
-          <div class="card-inner">
-            <div class="card-label">Jaqueta</div>
-            <div class="card-price">R$ 89</div>
-          </div>
-        </div>
-        <div class="stack-card">
-          <div class="card-inner">
-            <div class="card-label">Bolsa vintage</div>
-            <div class="card-price">R$ 145</div>
-          </div>
-        </div>
-        <div class="stack-card">
-          <div class="card-emoji">👗</div>
-        </div>
-      </div>
-    </div>
-    -->
-
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ── DESTAQUES ── -->
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Em <span>destaque</span> hoje</h2>
-    <a href="#" class="see-all">Ver todos →</a>
+    <a href="resultados.html" class="see-all">Ver todos →</a>
   </div>
   <div class="carousel-wrapper">
-    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">
+    <button class="carousel-btn prev" onclick="scrollCarousel(this,-1)">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
+<<<<<<< HEAD
     <div class="carousel-track">
 
     </div>
     <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
+=======
+    <div class="carousel-track" id="track-destaques"><div class="loading">Carregando…</div></div>
+    <button class="carousel-btn next" onclick="scrollCarousel(this,1)">
+>>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
 </section>
 
-<!-- ── DIFERENCIAIS ── -->
 <div class="banner-strip">
   <div class="banner-inner">
-    <div class="banner-feature">
-      <div class="feature-icon">🔒</div>
-      <div>
-        <div class="feature-title">Compra protegida</div>
-        <div class="feature-desc">Seu dinheiro fica seguro até você confirmar o recebimento</div>
-      </div>
-    </div>
-    <div class="banner-feature">
-      <div class="feature-icon">🚚</div>
-      <div>
-        <div class="feature-title">Frete facilitado</div>
-        <div class="feature-desc">Etiqueta gerada automaticamente para o vendedor</div>
-      </div>
-    </div>
-    <div class="banner-feature">
-      <div class="feature-icon">♻️</div>
-      <div>
-        <div class="feature-title">Moda circular</div>
-        <div class="feature-desc">Cada peça vendida evita descarte e reduz impacto ambiental</div>
-      </div>
-    </div>
+    <div class="banner-feature"><div class="feature-icon">🔒</div><div><div class="feature-title">Compra protegida</div><div class="feature-desc">Seu dinheiro fica seguro até você confirmar o recebimento</div></div></div>
+    <div class="banner-feature"><div class="feature-icon">🚚</div><div><div class="feature-title">Frete facilitado</div><div class="feature-desc">Etiqueta gerada automaticamente para o vendedor</div></div></div>
+    <div class="banner-feature"><div class="feature-icon">♻️</div><div><div class="feature-title">Moda circular</div><div class="feature-desc">Cada peça vendida evita descarte e reduz impacto ambiental</div></div></div>
   </div>
 </div>
 
-<!-- ── NOVIDADES ── -->
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Chegando <span>agora</span></h2>
-    <a href="#" class="see-all">Ver todos →</a>
+    <a href="resultados.html" class="see-all">Ver todos →</a>
   </div>
   <div class="carousel-wrapper">
-    <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">
+    <button class="carousel-btn prev" onclick="scrollCarousel(this,-1)">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
+<<<<<<< HEAD
     <div class="carousel-track">
 
     </div>
     <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
+=======
+    <div class="carousel-track" id="track-novidades"><div class="loading">Carregando…</div></div>
+    <button class="carousel-btn next" onclick="scrollCarousel(this,1)">
+>>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
@@ -177,7 +119,6 @@
 
 <div class="divider"></div>
 
-<!-- ── NEWSLETTER ── -->
 <div class="newsletter">
   <div class="newsletter-inner">
     <h3>Não perca nenhum <em>garimpo</em></h3>
@@ -189,12 +130,74 @@
   </div>
 </div>
 
-<!-- ── RODAPÉ ── -->
 <footer>
   <div class="footer-logo">🪡 Garimpo</div>
   <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
 </footer>
 
+<<<<<<< HEAD
 <script src="../js/main.js"></script>
+=======
+<script src="../js/api.js"></script>
+<script>
+  const COLORS = ['#F0E6D3','#E8D5C4','#D9E8D3','#E8D9D9','#DDD9E8','#E8E4D3','#F2EAD3','#D3E8F2','#F2D3D3','#D3F2E0'];
+
+  function buildCard(p) {
+    const img = p.imagens?.[0]?.image_url;
+    const bg  = COLORS[p.id % COLORS.length];
+    return `
+      <a class="product-card" href="produto.html?id=${p.id}">
+        <div class="product-img" style="background:${bg};">
+          ${img ? `<img src="${img}" alt="${p.title}">` : ''}
+          ${p.conditions ? `<span class="product-badge ${p.conditions==='Ótimo estado'?'green':''}">${p.conditions}</span>` : ''}
+          <button class="wishlist-btn" onclick="event.preventDefault();event.stopPropagation();this.textContent=this.textContent.trim()==='🤍'?'❤️':'🤍'">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">${p.category || p.categoria?.nome || 'Geral'}</div>
+          <div class="product-name">${p.title}</div>
+          <div class="product-seller">por ${p.user?.nome || 'vendedor'}</div>
+          <div class="product-footer">
+            <span class="product-price">${formatPrice(p.price)}</span>
+            ${p.type ? `<span class="product-size">${p.type}</span>` : ''}
+          </div>
+        </div>
+      </a>`;
+  }
+
+  async function loadProdutos() {
+    try {
+      const produtos = await apiFetch('/produtos');
+      const d = document.getElementById('track-destaques');
+      const n = document.getElementById('track-novidades');
+      if (!produtos.length) {
+        d.innerHTML = '<div style="padding:2rem;color:#8B6E55;font-size:.85rem;">Nenhum produto ainda. <a href="anunciar.html">Seja o primeiro a anunciar!</a></div>';
+        n.innerHTML = '';
+        return;
+      }
+      d.innerHTML = produtos.slice(0, 8).map(buildCard).join('');
+      n.innerHTML = [...produtos].reverse().slice(0, 8).map(buildCard).join('');
+    } catch(e) {
+      document.getElementById('track-destaques').innerHTML = '<div class="loading">Não foi possível carregar produtos.</div>';
+    }
+  }
+
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim())
+      window.location.href = `resultados.html?q=${encodeURIComponent(e.target.value.trim())}`;
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const cat = link.dataset.cat;
+      if (cat) window.location.href = `resultados.html?categoria=${encodeURIComponent(cat)}`;
+    });
+  });
+
+  loadProdutos();
+</script>
+>>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
 </body>
 </html>

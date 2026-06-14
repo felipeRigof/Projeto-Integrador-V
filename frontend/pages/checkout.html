@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style-pages.css">
+  <style>
+    .checkout-layout {
+      max-width: 960px; margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .checkout-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--text-main); margin-bottom: 2rem;
+    }
+
+    /* STEPS */
+    .steps {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 2.5rem;
+    }
+
+    .step {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .step.active { color: var(--terracotta); }
+    .step.done   { color: var(--sage); }
+
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--border); color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .step.active .step-num { background: var(--terracotta); color: white; }
+    .step.done .step-num   { background: var(--sage); color: white; }
+
+    .step-sep {
+      flex: 1; height: 1px;
+      background: var(--border); margin: 0 0.75rem;
+    }
+
+    /* FORM SECTIONS */
+    .checkout-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checkout-section:last-of-type { border-bottom: none; }
+
+    .checkout-section-title {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+    }
+
+    /* PAGAMENTO */
+    .payment-opts { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+
+    .payment-opt {
+      flex: 1; min-width: 120px;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      display: flex; align-items: center; gap: 0.6rem;
+      cursor: pointer; transition: border-color 0.2s;
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--text-main); background: white;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .payment-opt.active { border-color: var(--terracotta); color: var(--terracotta); }
+    .payment-opt:hover  { border-color: var(--terracotta); }
+
+    /* RESUMO LATERAL */
+    .checkout-resumo {
+      background: white; border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      position: sticky; top: 84px;
+    }
+
+    .resumo-title {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .resumo-item {
+      display: flex; justify-content: space-between;
+      font-size: 0.82rem; color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .resumo-item-nome { flex: 1; margin-right: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .resumo-sep { height: 1px; background: var(--border); margin: 0.875rem 0; }
+
+    .resumo-total-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+
+    .resumo-total-lbl { font-size: 0.88rem; font-weight: 600; color: var(--text-main); }
+
+    .resumo-total-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--terracotta);
+    }
+
+    .btn-confirmar {
+      width: 100%; margin-top: 1.25rem;
+      padding: 0.9rem; background: var(--terracotta); color: white;
+      border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+
+    .btn-confirmar:hover { background: var(--terracotta-light); }
+    .btn-confirmar:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* SUCESSO */
+    .checkout-sucesso {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 480px; margin: 0 auto;
+    }
+
+    .sucesso-icon { font-size: 4rem; margin-bottom: 1rem; }
+
+    .sucesso-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--text-main); margin-bottom: 0.75rem;
+    }
+
+    .sucesso-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+<header class="auth-header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🪡</div>
+    <span class="logo-text">Gari<span>mpo</span></span>
+  </a>
+</header>
+
+<!-- CHECKOUT -->
+<div id="checkout-content">
+  <div class="checkout-layout">
+
+    <!-- FORMULÁRIO -->
+    <div>
+      <h1 class="checkout-title">Finalizar compra</h1>
+
+      <!-- STEPS -->
+      <div class="steps">
+        <div class="step active" id="step-1"><div class="step-num">1</div> Entrega</div>
+        <div class="step-sep"></div>
+        <div class="step" id="step-2"><div class="step-num">2</div> Pagamento</div>
+        <div class="step-sep"></div>
+        <div class="step" id="step-3"><div class="step-num">3</div> Confirmação</div>
+      </div>
+
+      <form id="form-checkout">
+
+        <!-- ENTREGA -->
+        <div class="checkout-section" id="sec-entrega">
+          <div class="checkout-section-title">Endereço de entrega</div>
+          <div class="fields">
+            <div class="fields-row">
+              <div class="field">
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" placeholder="00000-000" maxlength="9">
+              </div>
+              <div class="field" style="flex:2">
+                <label for="rua">Rua</label>
+                <input type="text" id="rua" placeholder="Nome da rua">
+              </div>
+            </div>
+            <div class="fields-row">
+              <div class="field">
+                <label for="numero">Número</label>
+                <input type="text" id="numero" placeholder="123">
+              </div>
+              <div class="field" style="flex:2">
+                <label for="complemento">Complemento <span class="label-opt">opcional</span></label>
+                <input type="text" id="complemento" placeholder="Apto, bloco…">
+              </div>
+            </div>
+            <div class="fields-row">
+              <div class="field" style="flex:2">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" placeholder="Sua cidade">
+              </div>
+              <div class="field">
+                <label for="estado">Estado</label>
+                <select id="estado">
+                  <option value="" disabled selected>UF</option>
+                  <option>AC</option><option>AL</option><option>AM</option><option>AP</option>
+                  <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+                  <option>GO</option><option>MA</option><option>MG</option><option>MS</option>
+                  <option>MT</option><option>PA</option><option>PB</option><option>PE</option>
+                  <option>PI</option><option>PR</option><option>RJ</option><option>RN</option>
+                  <option>RO</option><option>RR</option><option>RS</option><option>SC</option>
+                  <option>SE</option><option>SP</option><option>TO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGAMENTO -->
+        <div class="checkout-section" id="sec-pagamento">
+          <div class="checkout-section-title">Forma de pagamento</div>
+          <div class="payment-opts">
+            <button type="button" class="payment-opt active" onclick="selectPagamento(this,'pix')">💠 Pix</button>
+            <button type="button" class="payment-opt" onclick="selectPagamento(this,'cartao')">💳 Cartão</button>
+            <button type="button" class="payment-opt" onclick="selectPagamento(this,'boleto')">📄 Boleto</button>
+          </div>
+
+          <div id="pix-info" style="font-size:.85rem;color:var(--text-muted);line-height:1.6;">
+            Após confirmar, você receberá o QR Code do Pix para pagamento. O pedido é confirmado em até 1 hora após o pagamento.
+          </div>
+
+          <div id="cartao-fields" style="display:none">
+            <div class="fields" style="margin-top:.75rem">
+              <div class="field">
+                <label for="num-cartao">Número do cartão</label>
+                <input type="text" id="num-cartao" placeholder="0000 0000 0000 0000" maxlength="19">
+              </div>
+              <div class="fields-row">
+                <div class="field">
+                  <label for="validade">Validade</label>
+                  <input type="text" id="validade" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div class="field">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" placeholder="123" maxlength="3">
+                </div>
+              </div>
+              <div class="field">
+                <label for="nome-cartao">Nome no cartão</label>
+                <input type="text" id="nome-cartao" placeholder="Como está no cartão">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="form-error" id="checkout-error"></p>
+
+        <button type="submit" class="btn-primary" style="border-radius:10px;padding:.9rem 2rem;font-size:.95rem;font-weight:600;border:none;cursor:pointer;" id="btn-confirmar">
+          Confirmar pedido
+        </button>
+
+      </form>
+    </div>
+
+    <!-- RESUMO -->
+    <div class="checkout-resumo">
+      <div class="resumo-title">Sua sacola</div>
+      <div id="resumo-itens"></div>
+      <div class="resumo-sep"></div>
+      <div class="resumo-total-row">
+        <span class="resumo-total-lbl">Total</span>
+        <span class="resumo-total-val" id="resumo-total">R$ 0,00</span>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-muted);margin-top:.5rem;text-align:right">+ frete a calcular</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TELA DE SUCESSO -->
+<div class="checkout-sucesso" id="checkout-sucesso">
+  <div class="sucesso-icon">✅</div>
+  <h2 class="sucesso-title">Pedido realizado!</h2>
+  <p class="sucesso-sub">
+    Seu pedido foi confirmado. Você pode acompanhar o status em <strong>Minha Conta</strong>.
+    O vendedor será notificado e entrará em contato em breve.
+  </p>
+  <a href="minha-conta.html" class="btn-primary" style="text-decoration:none;display:inline-block;border-radius:10px;padding:.8rem 2rem;font-size:.9rem;">Ver meus pedidos</a>
+  <br><br>
+  <a href="index.html" style="font-size:.82rem;color:var(--text-muted);">Continuar comprando</a>
+</div>
+
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="../js/api.js"></script>
+<script>
+  requireAuth();
+
+  let pagamentoSelecionado = 'pix';
+
+  function getSacola() {
+    const s = localStorage.getItem('sacola');
+    return s ? JSON.parse(s) : [];
+  }
+
+  function selectPagamento(btn, tipo) {
+    document.querySelectorAll('.payment-opt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    pagamentoSelecionado = tipo;
+    document.getElementById('pix-info').style.display     = tipo === 'pix'    ? 'block' : 'none';
+    document.getElementById('cartao-fields').style.display = tipo === 'cartao' ? 'block' : 'none';
+  }
+
+  function renderResumo() {
+    const itens = getSacola();
+    const el    = document.getElementById('resumo-itens');
+
+    if (!itens.length) {
+      window.location.href = 'sacola.html';
+      return;
+    }
+
+    el.innerHTML = itens.map(i => `
+      <div class="resumo-item">
+        <span class="resumo-item-nome">${i.title}</span>
+        <span>${formatPrice(i.price)}</span>
+      </div>`).join('');
+
+    const total = itens.reduce((s, i) => s + parseFloat(i.price || 0), 0);
+    document.getElementById('resumo-total').textContent = formatPrice(total);
+  }
+
+  // Máscara CEP
+  document.getElementById('cep').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g,'').slice(0,8);
+    if (v.length > 5) v = v.slice(0,5) + '-' + v.slice(5);
+    this.value = v;
+  });
+
+  // Máscara cartão
+  document.getElementById('num-cartao').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g,'').slice(0,16);
+    v = v.match(/.{1,4}/g)?.join(' ') || v;
+    this.value = v;
+  });
+
+  // Máscara validade
+  document.getElementById('validade').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g,'').slice(0,4);
+    if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+    this.value = v;
+  });
+
+  // SUBMIT
+  document.getElementById('form-checkout').addEventListener('submit', async e => {
+    e.preventDefault();
+    const errEl = document.getElementById('checkout-error');
+    const btn   = document.getElementById('btn-confirmar');
+    errEl.textContent = '';
+
+    const cep    = document.getElementById('cep').value.trim();
+    const rua    = document.getElementById('rua').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const estado = document.getElementById('estado').value;
+
+    if (!cep || !rua || !numero || !cidade || !estado) {
+      errEl.textContent = 'Preencha todos os campos de entrega.';
+      return;
+    }
+
+    btn.textContent = 'Confirmando…'; btn.disabled = true;
+
+    try {
+      const itens = getSacola();
+
+      // Cria um pedido para cada item da sacola
+      for (const item of itens) {
+        await apiFetch('/pedidos', {
+          method: 'POST',
+          body: JSON.stringify({ produto_id: item.id })
+        });
+      }
+
+      // Limpa sacola
+      localStorage.removeItem('sacola');
+
+      // Mostra tela de sucesso
+      document.getElementById('checkout-content').style.display = 'none';
+      document.getElementById('checkout-sucesso').style.display = 'block';
+
+    } catch(err) {
+      errEl.textContent = err.message;
+      btn.textContent = 'Confirmar pedido'; btn.disabled = false;
+    }
+  });
+
+  renderResumo();
+</script>
+</body>
+</html>

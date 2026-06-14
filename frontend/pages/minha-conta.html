@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Conta — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style-pages.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🪡</div>
+      <span class="logo-text">Gari<span>mpo</span></span>
+    </a>
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Buscar peças, marcas, estilos…">
+    </div>
+    <div class="header-actions">
+      <a href="anunciar.html" id="btn-sell" class="btn-sell">+ Vender</a>
+    </div>
+  </div>
+</header>
+
+<div class="account-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="account-sidebar">
+    <div class="account-avatar">👤</div>
+    <div class="account-name" id="acc-nome">…</div>
+    <div class="account-email" id="acc-email">…</div>
+
+    <nav class="account-nav">
+      <button class="account-nav-link active" onclick="showSection('compras')">
+        📦 Minhas compras
+      </button>
+      <button class="account-nav-link" onclick="showSection('anuncios')">
+        🏷️ Meus anúncios
+      </button>
+      <button class="account-nav-link" onclick="showSection('perfil')">
+        ✏️ Editar perfil
+      </button>
+      <button class="account-nav-link danger" onclick="logout()">
+        Sair
+      </button>
+    </nav>
+  </aside>
+
+  <!-- CONTEÚDO -->
+  <div class="account-content">
+
+    <!-- COMPRAS -->
+    <div class="account-section active" id="section-compras">
+      <h2 class="account-section-title">Minhas compras</h2>
+      <div id="lista-compras"><div class="loading">Carregando…</div></div>
+    </div>
+
+    <!-- ANÚNCIOS -->
+    <div class="account-section" id="section-anuncios">
+      <h2 class="account-section-title">Meus anúncios</h2>
+      <div style="margin-bottom:1.25rem">
+        <a href="anunciar.html" class="btn-primary" style="text-decoration:none;display:inline-block;padding:.65rem 1.4rem;border-radius:8px;font-size:.88rem;">+ Novo anúncio</a>
+      </div>
+      <div id="lista-anuncios"><div class="loading">Carregando…</div></div>
+    </div>
+
+    <!-- PERFIL -->
+    <div class="account-section" id="section-perfil">
+      <h2 class="account-section-title">Editar perfil</h2>
+      <form class="profile-form" id="form-perfil">
+        <div class="field">
+          <label for="p-nome">Nome</label>
+          <input type="text" id="p-nome" placeholder="Seu nome">
+        </div>
+        <div class="field">
+          <label for="p-email">E-mail</label>
+          <input type="email" id="p-email" disabled style="opacity:.6;cursor:not-allowed">
+        </div>
+        <div class="field">
+          <label for="p-cidade">Cidade</label>
+          <input type="text" id="p-cidade" placeholder="Sua cidade">
+        </div>
+        <div class="field">
+          <label for="p-telefone">Telefone <span class="label-opt">opcional</span></label>
+          <input type="text" id="p-telefone" placeholder="(00) 00000-0000">
+        </div>
+        <p class="form-error" id="perfil-error"></p>
+        <p class="form-success" id="perfil-success"></p>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;border:none;cursor:pointer;border-radius:8px;padding:.7rem 1.6rem">Salvar alterações</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="../js/api.js"></script>
+<script>
+  requireAuth();
+
+  const user = getUser();
+  document.getElementById('acc-nome').textContent  = user?.nome  || '';
+  document.getElementById('acc-email').textContent = user?.email || '';
+  document.getElementById('p-nome').value    = user?.nome  || '';
+  document.getElementById('p-email').value   = user?.email || '';
+
+  function showSection(id) {
+    document.querySelectorAll('.account-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.account-nav-link').forEach(l => l.classList.remove('active'));
+    document.getElementById('section-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // ── COMPRAS ──
+  async function loadCompras() {
+    try {
+      const pedidos = await apiFetch('/pedidos');
+      const el = document.getElementById('lista-compras');
+      if (!pedidos.length) {
+        el.innerHTML = '<div class="empty-state"><h3>Nenhuma compra ainda</h3><p><a href="resultados.html">Explorar produtos</a></p></div>';
+        return;
+      }
+      el.innerHTML = pedidos.map(p => `
+        <div class="order-card">
+          <div class="order-img">
+            ${p.produto?.imagens?.[0]?.image_url
+              ? `<img src="${p.produto.imagens[0].image_url}" alt="">`
+              : '📦'}
+          </div>
+          <div class="order-info">
+            <div class="order-name">${p.produto?.title || 'Produto'}</div>
+            <div class="order-meta">${formatPrice(p.total)} · ${new Date(p.created_at).toLocaleDateString('pt-BR')}</div>
+          </div>
+          <span class="order-status ${(p.status||'pendente').toLowerCase()}">${p.status || 'Pendente'}</span>
+        </div>`).join('');
+    } catch(e) {
+      document.getElementById('lista-compras').innerHTML = '<div class="loading">Erro ao carregar pedidos.</div>';
+    }
+  }
+
+  // ── ANÚNCIOS ──
+  async function loadAnuncios() {
+    try {
+      const todos = await apiFetch('/produtos');
+      const meus  = todos.filter(p => p.user_id === user?.id);
+      const el    = document.getElementById('lista-anuncios');
+
+      if (!meus.length) {
+        el.innerHTML = '<div class="empty-state"><h3>Nenhum anúncio ainda</h3><p>Comece a vender suas peças!</p></div>';
+        return;
+      }
+
+      el.innerHTML = meus.map(p => `
+        <div class="my-product-card">
+          <div class="my-product-thumb">
+            ${p.imagens?.[0]?.image_url ? `<img src="${p.imagens[0].image_url}" alt="">` : '🏷️'}
+          </div>
+          <div class="my-product-info">
+            <div class="my-product-name">${p.title}</div>
+            <div class="my-product-meta">${formatPrice(p.price)} · ${p.status || 'disponível'}</div>
+          </div>
+          <span class="order-status ${(p.status||'disponível').toLowerCase().replace(' ','')}">
+            ${p.status || 'Disponível'}
+          </span>
+          <div class="my-product-actions">
+            <a href="produto.html?id=${p.id}" class="btn-sm btn-sm-outline">Ver</a>
+            <button class="btn-sm btn-sm-danger" onclick="excluir(${p.id})">Excluir</button>
+          </div>
+        </div>`).join('');
+    } catch(e) {
+      document.getElementById('lista-anuncios').innerHTML = '<div class="loading">Erro ao carregar anúncios.</div>';
+    }
+  }
+
+  async function excluir(id) {
+    if (!confirm('Excluir este anúncio?')) return;
+    try {
+      await apiFetch(`/produtos/${id}`, { method: 'DELETE' });
+      loadAnuncios();
+    } catch(e) { alert(e.message); }
+  }
+
+  // ── PERFIL ──
+  document.getElementById('form-perfil').addEventListener('submit', async e => {
+    e.preventDefault();
+    const errEl = document.getElementById('perfil-error');
+    const okEl  = document.getElementById('perfil-success');
+    errEl.textContent = ''; okEl.textContent = '';
+
+    // Nota: o backend atual não tem PUT /users — exibe aviso
+    okEl.textContent = 'Funcionalidade em breve. Dados salvos localmente.';
+    const updated = { ...user, nome: document.getElementById('p-nome').value, city: document.getElementById('p-cidade').value };
+    localStorage.setItem('user', JSON.stringify(updated));
+    document.getElementById('acc-nome').textContent = updated.nome;
+  });
+
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim())
+      window.location.href = `resultados.html?q=${encodeURIComponent(e.target.value.trim())}`;
+  });
+
+  loadCompras();
+  loadAnuncios();
+</script>
+</body>
+</html>

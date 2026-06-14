@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style-pages.css">
+  <style>
+    .perfil-hero {
+      background: var(--brown-dark);
+      padding: 3rem 2rem;
+    }
+    .perfil-hero-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .perfil-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--brown-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; flex-shrink: 0;
+      border: 3px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+    }
+    .perfil-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .perfil-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.25rem;
+    }
+    .perfil-meta { font-size: 0.82rem; color: rgba(245,239,224,0.55); }
+    .perfil-stats {
+      margin-left: auto; display: flex; gap: 2rem;
+    }
+    .perfil-stat { text-align: center; }
+    .perfil-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--gold); display: block;
+    }
+    .perfil-stat-lbl { font-size: 0.7rem; color: rgba(245,239,224,0.45); }
+
+    .perfil-content {
+      max-width: 1280px; margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    .perfil-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.875rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .perfil-section-title span { color: var(--terracotta); font-style: italic; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🪡</div>
+      <span class="logo-text">Gari<span>mpo</span></span>
+    </a>
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Buscar peças, marcas, estilos…">
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-account" title="Conta">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <a href="anunciar.html" id="btn-sell" class="btn-sell">+ Vender</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO DO PERFIL -->
+<div class="perfil-hero">
+  <div class="perfil-hero-inner">
+    <div class="perfil-avatar" id="perfil-avatar">👤</div>
+    <div>
+      <div class="perfil-nome" id="perfil-nome">Carregando…</div>
+      <div class="perfil-meta" id="perfil-meta"></div>
+    </div>
+    <div class="perfil-stats">
+      <div class="perfil-stat">
+        <span class="perfil-stat-num" id="stat-pecas">—</span>
+        <span class="perfil-stat-lbl">peças</span>
+      </div>
+      <div class="perfil-stat">
+        <span class="perfil-stat-num" id="stat-vendas">—</span>
+        <span class="perfil-stat-lbl">vendas</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANÚNCIOS DO VENDEDOR -->
+<div class="perfil-content">
+  <h2 class="perfil-section-title">Peças à <span>venda</span></h2>
+  <div class="products-grid" id="grid-vendedor">
+    <div class="loading" style="grid-column:1/-1">Carregando…</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="../js/api.js"></script>
+<script>
+  const userId = new URLSearchParams(location.search).get('id');
+  if (!userId) window.location.href = 'index.html';
+
+  const COLORS = ['#F0E6D3','#E8D5C4','#D9E8D3','#E8D9D9','#DDD9E8','#E8E4D3'];
+
+  function buildCard(p) {
+    const bg  = COLORS[p.id % COLORS.length];
+    const img = p.imagens?.[0]?.image_url;
+    return `
+      <a class="product-card" href="produto.html?id=${p.id}">
+        <div class="product-img" style="background:${bg};">
+          ${img ? `<img src="${img}" alt="${p.title}">` : ''}
+          ${p.conditions ? `<span class="product-badge ${p.conditions==='Ótimo estado'?'green':''}">${p.conditions}</span>` : ''}
+          <button class="wishlist-btn" onclick="event.preventDefault();this.textContent=this.textContent.trim()==='🤍'?'❤️':'🤍'">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">${p.category || p.categoria?.nome || ''}</div>
+          <div class="product-name">${p.title}</div>
+          <div class="product-footer">
+            <span class="product-price">${formatPrice(p.price)}</span>
+            ${p.type ? `<span class="product-size">${p.type}</span>` : ''}
+          </div>
+        </div>
+      </a>`;
+  }
+
+  async function loadPerfil() {
+    try {
+      // Busca todos os produtos e filtra pelo vendedor
+      const todos = await apiFetch('/produtos');
+      const meus  = todos.filter(p => p.user_id == userId && p.status === 'disponível');
+
+      // Preenche dados do vendedor a partir do primeiro produto
+      if (meus.length) {
+        const user = meus[0].user;
+        document.title = `${user?.nome || 'Vendedor'} — Garimpo`;
+        document.getElementById('perfil-nome').textContent = user?.nome || 'Vendedor';
+        document.getElementById('perfil-meta').textContent = user?.city ? `📍 ${user.city}` : '';
+        document.getElementById('stat-pecas').textContent  = meus.length;
+      } else {
+        document.getElementById('perfil-nome').textContent = 'Vendedor';
+        document.getElementById('stat-pecas').textContent  = '0';
+      }
+
+      document.getElementById('stat-vendas').textContent = '—';
+
+      const grid = document.getElementById('grid-vendedor');
+      if (!meus.length) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><h3>Nenhuma peça disponível</h3></div>';
+        return;
+      }
+      grid.innerHTML = meus.map(buildCard).join('');
+
+    } catch(e) {
+      document.getElementById('grid-vendedor').innerHTML =
+        '<div class="loading" style="grid-column:1/-1">Erro ao carregar perfil.</div>';
+    }
+  }
+
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim())
+      window.location.href = `resultados.html?q=${encodeURIComponent(e.target.value.trim())}`;
+  });
+
+  loadPerfil();
+</script>
+</body>
+</html>

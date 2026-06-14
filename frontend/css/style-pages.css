@@ -1,0 +1,333 @@
+/* ── PÁGINAS INTERNAS (fundo branco, header simples) ── */
+body.page-white { background: white; }
+
+/* AUTH HEADER (compartilhado com login e anunciar) */
+.auth-header {
+  position: static;
+  border-bottom: 1px solid #f0ebe3;
+  background: white;
+  display: flex; align-items: center;
+  padding: 0 2rem; height: 60px;
+}
+
+/* ── ANUNCIAR ── */
+.form-main { max-width: 640px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+.form-header { margin-bottom: 2.5rem; }
+
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem; font-weight: 700;
+  color: var(--text-main); margin-bottom: 0.3rem;
+}
+
+.form-sub { font-size: 0.85rem; color: var(--text-muted); }
+
+.form-section { padding: 1.75rem 0; }
+
+.form-section-title {
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+}
+
+.form-divider { height: 1px; background: #f0ebe3; }
+
+.fields { display: flex; flex-direction: column; gap: 1.1rem; }
+
+.fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.field label {
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+
+.label-opt {
+  font-size: 0.68rem; font-weight: 400;
+  color: #c8b8a8; text-transform: none; letter-spacing: 0;
+}
+
+.field input, .field select, .field textarea {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #e8e0d5; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  color: var(--text-main); background: white;
+  outline: none; transition: border-color 0.2s;
+  resize: none; appearance: none;
+}
+
+.field input::placeholder, .field textarea::placeholder { color: #c8b8a8; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--terracotta); }
+
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B6E55' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.2rem; cursor: pointer;
+}
+
+.field-hint { font-size: 0.72rem; color: #c8b8a8; margin-top: 0.5rem; }
+
+/* UPLOAD */
+.upload-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 0.5rem; margin-bottom: 0.5rem;
+}
+
+.upload-main {
+  aspect-ratio: 1;
+  border: 1.5px dashed #e0d5c8; border-radius: 10px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.5rem; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  color: var(--text-muted); text-align: center; padding: 1rem;
+  background-size: cover; background-position: center;
+}
+
+.upload-main:hover { border-color: var(--terracotta); background-color: #fdf9f5; }
+.upload-main span:first-of-type { font-size: 0.82rem; font-weight: 500; }
+.upload-hint { font-size: 0.7rem; color: #c8b8a8; }
+
+.upload-extra {
+  aspect-ratio: 1;
+  border: 1.5px dashed #e0d5c8; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  color: #c8b8a8; font-size: 1.4rem; font-weight: 300;
+  background-size: cover; background-position: center;
+}
+
+.upload-extra:hover { border-color: var(--terracotta); background-color: #fdf9f5; color: var(--terracotta); }
+
+/* RADIO */
+.radio-group { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.radio-opt {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.88rem; color: var(--text-main); cursor: pointer;
+}
+
+.radio-opt input[type="radio"] { accent-color: var(--terracotta); width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+
+/* AÇÕES DO FORMULÁRIO */
+.form-actions { display: flex; gap: 0.75rem; padding-top: 0.5rem; }
+
+.btn-preview {
+  flex: 1; padding: 0.85rem;
+  background: white; border: 1px solid #e8e0d5; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+  color: var(--text-muted); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-preview:hover { border-color: var(--text-muted); color: var(--text-main); }
+
+.btn-publish {
+  flex: 2; padding: 0.85rem;
+  background: var(--terracotta); color: white;
+  border: none; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+
+.btn-publish:hover { background: var(--terracotta-light); }
+.btn-publish:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── RESULTADOS / LISTAGEM ── */
+.results-layout {
+  max-width: 1280px; margin: 0 auto;
+  padding: 2rem;
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 2.5rem; align-items: start;
+}
+
+.filters-panel { position: sticky; top: 80px; }
+
+.filter-group { margin-bottom: 1.75rem; }
+
+.filter-title {
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.filter-option {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.3rem 0;
+  font-size: 0.85rem; color: var(--text-main);
+  cursor: pointer;
+}
+
+.filter-option input { accent-color: var(--terracotta); cursor: pointer; }
+
+.filter-range { display: flex; align-items: center; gap: 0.5rem; }
+
+.filter-range input[type="number"] {
+  width: 80px; padding: 0.4rem 0.6rem;
+  border: 1px solid #e8e0d5; border-radius: 6px;
+  font-size: 0.82rem; outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-range input:focus { border-color: var(--terracotta); }
+.filter-range span { font-size: 0.78rem; color: var(--text-muted); }
+
+.btn-filter-apply {
+  width: 100%; padding: 0.65rem;
+  background: var(--terracotta); color: white;
+  border: none; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+.btn-filter-apply:hover { background: var(--terracotta-light); }
+
+.results-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.results-count { font-size: 0.82rem; color: var(--text-muted); }
+
+.results-sort {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #e8e0d5; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+  color: var(--text-main); background: white;
+  outline: none; cursor: pointer;
+  appearance: none;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 1rem;
+}
+
+.products-grid .product-card { min-width: unset; }
+
+/* ── MINHA CONTA ── */
+.account-layout {
+  max-width: 1280px; margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 3rem; align-items: start;
+}
+
+.account-sidebar { position: sticky; top: 80px; }
+
+.account-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin-bottom: 0.75rem; overflow: hidden;
+}
+
+.account-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.account-name { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+.account-email { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; margin-bottom: 1.5rem; }
+
+.account-nav { display: flex; flex-direction: column; gap: 0.15rem; }
+
+.account-nav-link {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 0.75rem; border-radius: 8px;
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--text-muted); text-decoration: none;
+  transition: background 0.2s, color 0.2s; cursor: pointer;
+  border: none; background: none; width: 100%; text-align: left;
+}
+
+.account-nav-link:hover { background: var(--cream); color: var(--text-main); }
+.account-nav-link.active { background: var(--cream); color: var(--terracotta); }
+.account-nav-link.danger { color: #c0392b; }
+.account-nav-link.danger:hover { background: #fdf0f0; }
+
+.account-content {}
+
+.account-section { display: none; }
+.account-section.active { display: block; }
+
+.account-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 700;
+  color: var(--text-main); margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* CARDS DE PEDIDOS E ANÚNCIOS */
+.order-card, .my-product-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem;
+  margin-bottom: 0.875rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+
+.order-img, .my-product-thumb {
+  width: 64px; height: 64px; border-radius: 8px;
+  background: var(--cream); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; overflow: hidden;
+}
+
+.order-img img, .my-product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.order-info, .my-product-info { flex: 1; }
+
+.order-name, .my-product-name {
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--text-main); margin-bottom: 0.2rem;
+}
+
+.order-meta, .my-product-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+.order-status {
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.25rem 0.6rem; border-radius: 50px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+
+.order-status.pendente { background: rgba(212,168,67,0.12); color: var(--gold); }
+.order-status.enviado { background: rgba(122,140,110,0.12); color: var(--sage); }
+.order-status.entregue { background: rgba(39,174,96,0.12); color: #27ae60; }
+.order-status.disponivel { background: rgba(122,140,110,0.12); color: var(--sage); }
+.order-status.vendido { background: rgba(44,26,14,0.08); color: var(--text-muted); }
+
+.my-product-actions { display: flex; gap: 0.5rem; }
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
+  border-radius: 6px; cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-sm-outline {
+  background: white; color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.btn-sm-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+.btn-sm-danger {
+  background: white; color: #c0392b;
+  border: 1px solid rgba(192,57,43,0.2);
+}
+
+.btn-sm-danger:hover { background: #fdf0f0; }
+
+/* PERFIL EDITAR */
+.profile-form { display: flex; flex-direction: column; gap: 1.1rem; max-width: 480px; }
+
+.form-error { color: #c0392b; font-size: 0.82rem; margin-top: 0.25rem; }
+.form-success { color: #27ae60; font-size: 0.82rem; margin-top: 0.25rem; }

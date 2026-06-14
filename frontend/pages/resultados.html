@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style-pages.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🪡</div>
+      <span class="logo-text">Gari<span>mpo</span></span>
+    </a>
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Buscar peças, marcas, estilos…">
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-account" title="Conta">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <a href="anunciar.html" id="btn-sell" class="btn-sell">+ Vender</a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-strip">
+  <div class="nav-strip-inner">
+    <a href="resultados.html" class="nav-link active">Tudo</a>
+    <a href="resultados.html?categoria=Roupas" class="nav-link">Roupas</a>
+    <a href="resultados.html?categoria=Calçados" class="nav-link">Calçados</a>
+    <a href="resultados.html?categoria=Brinquedos" class="nav-link">Brinquedos</a>
+    <a href="resultados.html?categoria=Livros" class="nav-link">Livros</a>
+    <a href="resultados.html?categoria=Acessórios" class="nav-link">Acessórios</a>
+    <a href="resultados.html?categoria=Decoração" class="nav-link">Decoração</a>
+    <a href="resultados.html?categoria=Eletrônicos" class="nav-link">Eletrônicos</a>
+    <a href="resultados.html?categoria=Móveis" class="nav-link">Móveis</a>
+    <a href="resultados.html?categoria=Outros" class="nav-link">Outros</a>
+  </div>
+</nav>
+
+<div class="results-layout">
+
+  <!-- FILTROS -->
+  <aside class="filters-panel">
+    <div class="filter-group">
+      <div class="filter-title">Condição</div>
+      <label class="filter-option"><input type="checkbox" value="Novo"> Novo</label>
+      <label class="filter-option"><input type="checkbox" value="Ótimo estado"> Ótimo estado</label>
+      <label class="filter-option"><input type="checkbox" value="Bom estado"> Bom estado</label>
+      <label class="filter-option"><input type="checkbox" value="Com marcas de uso"> Com marcas de uso</label>
+    </div>
+    <div class="filter-group">
+      <div class="filter-title">Preço</div>
+      <div class="filter-range">
+        <input type="number" id="preco-min" placeholder="Min" min="0">
+        <span>até</span>
+        <input type="number" id="preco-max" placeholder="Máx" min="0">
+      </div>
+    </div>
+    <button class="btn-filter-apply" onclick="aplicarFiltros()">Aplicar filtros</button>
+  </aside>
+
+  <!-- RESULTADOS -->
+  <div>
+    <div class="results-header">
+      <span class="results-count" id="results-count">Carregando…</span>
+      <select class="results-sort" id="sort" onchange="renderizar()">
+        <option value="recente">Mais recentes</option>
+        <option value="preco-asc">Menor preço</option>
+        <option value="preco-desc">Maior preço</option>
+      </select>
+    </div>
+    <div class="products-grid" id="grid">
+      <div class="loading" style="grid-column:1/-1">Carregando…</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="../js/api.js"></script>
+<script>
+  const params   = new URLSearchParams(location.search);
+  const queryStr = params.get('q') || '';
+  const catParam = params.get('categoria') || '';
+  let todosOsProdutos = [];
+
+  // Preenche busca e destaca categoria ativa no nav
+  if (queryStr) document.getElementById('search-input').value = queryStr;
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.remove('active');
+    const href = new URL(l.href, location.href);
+    const cat  = href.searchParams.get('categoria') || '';
+    if (cat === catParam && !queryStr) l.classList.add('active');
+    if (!cat && !catParam && !queryStr) l.classList.add('active');
+  });
+
+  function buildCard(p) {
+    const COLORS = ['#F0E6D3','#E8D5C4','#D9E8D3','#E8D9D9','#DDD9E8','#E8E4D3'];
+    const bg  = COLORS[p.id % COLORS.length];
+    const img = p.imagens?.[0]?.image_url;
+    return `
+      <a class="product-card" href="produto.html?id=${p.id}">
+        <div class="product-img" style="background:${bg};">
+          ${img ? `<img src="${img}" alt="${p.title}">` : ''}
+          ${p.conditions ? `<span class="product-badge ${p.conditions==='Ótimo estado'?'green':''}">${p.conditions}</span>` : ''}
+          <button class="wishlist-btn" onclick="event.preventDefault();this.textContent=this.textContent.trim()==='🤍'?'❤️':'🤍'">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-category">${p.category || p.categoria?.nome || ''}</div>
+          <div class="product-name">${p.title}</div>
+          <div class="product-seller">por ${p.user?.nome || ''}</div>
+          <div class="product-footer">
+            <span class="product-price">${formatPrice(p.price)}</span>
+            ${p.type ? `<span class="product-size">${p.type}</span>` : ''}
+          </div>
+        </div>
+      </a>`;
+  }
+
+  function filtrar() {
+    const condicoes = [...document.querySelectorAll('.filter-option input:checked')].map(i => i.value);
+    const min = parseFloat(document.getElementById('preco-min').value) || 0;
+    const max = parseFloat(document.getElementById('preco-max').value) || Infinity;
+
+    return todosOsProdutos.filter(p => {
+      const matchQ   = !queryStr || p.title.toLowerCase().includes(queryStr.toLowerCase());
+      const matchCat = !catParam || p.category === catParam || p.categoria?.nome === catParam;
+      const matchCond = !condicoes.length || condicoes.includes(p.conditions);
+      const preco = parseFloat(p.price) || 0;
+      const matchPreco = preco >= min && preco <= max;
+      return matchQ && matchCat && matchCond && matchPreco;
+    });
+  }
+
+  function renderizar() {
+    const sort = document.getElementById('sort').value;
+    let lista = filtrar();
+
+    if (sort === 'preco-asc') lista.sort((a,b) => (parseFloat(a.price)||0) - (parseFloat(b.price)||0));
+    else if (sort === 'preco-desc') lista.sort((a,b) => (parseFloat(b.price)||0) - (parseFloat(a.price)||0));
+    else lista.sort((a,b) => b.id - a.id);
+
+    const grid = document.getElementById('grid');
+    const count = document.getElementById('results-count');
+
+    if (!lista.length) {
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><h3>Nenhuma peça encontrada</h3><p>Tente outros termos ou categorias.</p></div>';
+      count.textContent = '0 resultados';
+      return;
+    }
+
+    count.textContent = `${lista.length} peça${lista.length !== 1 ? 's' : ''} encontrada${lista.length !== 1 ? 's' : ''}`;
+    grid.innerHTML = lista.map(buildCard).join('');
+  }
+
+  function aplicarFiltros() { renderizar(); }
+
+  async function load() {
+    try {
+      todosOsProdutos = await apiFetch('/produtos');
+      renderizar();
+    } catch(e) {
+      document.getElementById('grid').innerHTML = '<div class="loading" style="grid-column:1/-1">Erro ao carregar.</div>';
+    }
+  }
+
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim())
+      window.location.href = `resultados.html?q=${encodeURIComponent(e.target.value.trim())}`;
+  });
+
+  load();
+</script>
+</body>
+</html>

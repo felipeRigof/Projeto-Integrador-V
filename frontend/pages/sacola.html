@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sacola — Garimpo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style-pages.css">
+  <style>
+    .sacola-layout {
+      max-width: 960px; margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .sacola-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+
+    .sacola-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sacola-img {
+      width: 72px; height: 72px; border-radius: 8px;
+      background: var(--cream); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; overflow: hidden;
+    }
+
+    .sacola-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .sacola-info { flex: 1; }
+
+    .sacola-nome {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--text-main); margin-bottom: 0.2rem;
+    }
+
+    .sacola-vendedor { font-size: 0.75rem; color: var(--text-muted); }
+
+    .sacola-preco {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--terracotta);
+    }
+
+    .sacola-remove {
+      background: none; border: none;
+      color: var(--text-muted); font-size: 1.1rem;
+      cursor: pointer; padding: 0.25rem;
+      transition: color 0.2s;
+    }
+
+    .sacola-remove:hover { color: #c0392b; }
+
+    /* RESUMO */
+    .sacola-resumo {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: sticky; top: 84px;
+    }
+
+    .resumo-title {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+    }
+
+    .resumo-linha {
+      display: flex; justify-content: space-between;
+      font-size: 0.85rem; color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .resumo-total {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem; margin-top: 0.5rem;
+    }
+
+    .resumo-total-lbl { font-size: 0.88rem; font-weight: 600; color: var(--text-main); }
+
+    .resumo-total-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--terracotta);
+    }
+
+    .btn-checkout {
+      width: 100%; margin-top: 1.25rem;
+      padding: 0.9rem;
+      background: var(--terracotta); color: white;
+      border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+      text-decoration: none; display: block; text-align: center;
+    }
+
+    .btn-checkout:hover { background: var(--terracotta-light); }
+
+    .resumo-seguro {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; color: var(--text-muted);
+      margin-top: 0.875rem; justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🪡</div>
+      <span class="logo-text">Gari<span>mpo</span></span>
+    </a>
+    <div class="search-bar">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Buscar peças, marcas, estilos…">
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-account" title="Conta">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <a href="anunciar.html" id="btn-sell" class="btn-sell">+ Vender</a>
+    </div>
+  </div>
+</header>
+
+<div class="sacola-layout">
+
+  <!-- ITENS -->
+  <div>
+    <h1 class="sacola-title">Sua sacola</h1>
+    <div id="sacola-itens"><div class="loading">Carregando…</div></div>
+  </div>
+
+  <!-- RESUMO -->
+  <div class="sacola-resumo">
+    <div class="resumo-title">Resumo do pedido</div>
+    <div class="resumo-linha"><span>Subtotal</span><span id="resumo-subtotal">R$ 0,00</span></div>
+    <div class="resumo-linha"><span>Frete</span><span>A calcular</span></div>
+    <div class="resumo-total">
+      <span class="resumo-total-lbl">Total</span>
+      <span class="resumo-total-val" id="resumo-total">R$ 0,00</span>
+    </div>
+    <a href="checkout.html" class="btn-checkout" id="btn-checkout">Finalizar compra</a>
+    <div class="resumo-seguro">🔒 Compra 100% protegida</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">🪡 Garimpo</div>
+  <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
+</footer>
+
+<script src="../js/api.js"></script>
+<script>
+  // A sacola é mantida no localStorage como array de IDs de produto
+  // Formato: [{ id, title, price, vendedor, imagem }]
+
+  function getSacola() {
+    const s = localStorage.getItem('sacola');
+    return s ? JSON.parse(s) : [];
+  }
+
+  function setSacola(itens) {
+    localStorage.setItem('sacola', JSON.stringify(itens));
+  }
+
+  function remover(id) {
+    const nova = getSacola().filter(i => i.id !== id);
+    setSacola(nova);
+    renderSacola();
+  }
+
+  function renderSacola() {
+    const itens = getSacola();
+    const el    = document.getElementById('sacola-itens');
+    const COLORS = ['#F0E6D3','#E8D5C4','#D9E8D3','#E8D9D9','#DDD9E8'];
+
+    if (!itens.length) {
+      el.innerHTML = `
+        <div class="empty-state">
+          <h3>Sua sacola está vazia</h3>
+          <p style="margin-top:.5rem"><a href="resultados.html" style="color:var(--terracotta)">Explorar produtos</a></p>
+        </div>`;
+      document.getElementById('resumo-subtotal').textContent = formatPrice(0);
+      document.getElementById('resumo-total').textContent    = formatPrice(0);
+      document.getElementById('btn-checkout').style.opacity  = '0.5';
+      document.getElementById('btn-checkout').style.pointerEvents = 'none';
+      return;
+    }
+
+    el.innerHTML = itens.map(item => `
+      <div class="sacola-item">
+        <div class="sacola-img" style="background:${COLORS[item.id % COLORS.length]}">
+          ${item.imagem ? `<img src="${item.imagem}" alt="${item.title}">` : '🏷️'}
+        </div>
+        <div class="sacola-info">
+          <div class="sacola-nome">${item.title}</div>
+          <div class="sacola-vendedor">por ${item.vendedor || 'vendedor'}</div>
+        </div>
+        <span class="sacola-preco">${formatPrice(item.price)}</span>
+        <button class="sacola-remove" onclick="remover(${item.id})" title="Remover">×</button>
+      </div>`).join('');
+
+    const total = itens.reduce((s, i) => s + parseFloat(i.price || 0), 0);
+    document.getElementById('resumo-subtotal').textContent = formatPrice(total);
+    document.getElementById('resumo-total').textContent    = formatPrice(total);
+    document.getElementById('btn-checkout').style.opacity  = '1';
+    document.getElementById('btn-checkout').style.pointerEvents = 'auto';
+  }
+
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim())
+      window.location.href = `resultados.html?q=${encodeURIComponent(e.target.value.trim())}`;
+  });
+
+  // Redireciona para login se tentar finalizar sem estar logado
+  document.getElementById('btn-checkout').addEventListener('click', e => {
+    if (!isLoggedIn()) {
+      e.preventDefault();
+      window.location.href = 'login.html?next=checkout.html';
+    }
+  });
+
+  renderSacola();
+</script>
+</body>
+</html>

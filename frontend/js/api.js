@@ -1,5 +1,5 @@
 // ── CONFIGURAÇÃO ──────────────────────────────────────────
-const API = 'http://localhost:3000';
+const API = 'https://garimpoapi.onrender.com';
 
 // ── AUTH HELPERS ──────────────────────────────────────────
 function getToken() {

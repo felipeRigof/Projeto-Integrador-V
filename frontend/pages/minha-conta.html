@@ -245,62 +245,71 @@
       window.location.href = `resultados.html?q=${encodeURIComponent(e.target.value.trim())}`;
   });
 
-  async function loadVendas() {
-    try {
-      const todos = await apiFetch('/produtos');
-      const meus = todos.filter(p => p.user_id === user?.id);
-      const el = document.getElementById('lista-vendas');
+ async function loadVendas() {
+  const el = document.getElementById('lista-vendas');
+  try {
+    const todos = await apiFetch('/produtos/meus');
+    const meus  = todos.filter(p => p.user_id === user?.id);
+    const el    = document.getElementById('lista-vendas');
 
-      if(!meus.length) {
-        el.innerHTML = '<div class="empty-state"><h3>Não há nenhum pedido ainda</h3></div>';
-        return;
-      }
-
-      let html = '';
-      for(const produto of meus) {
-        const pedidos = await apiFetch('/pedidos/produto/' + produto.id);
-        if (!pedidos.length) continue;
-
-        html += `<h3 style="margin:1rem 0 0.5rem; font-size:.95rem; color: #666;">${produto.title}</h3`;
-        html += pedidos.map(p => `
-          <div class="order-card">
-            <div class="order-img">
-              ${produto.imagens?.[0]?.image_url ? `<img src="${produto.imagens[0].image_url}" alt="">` : '📦'}
-            </div>
-            
-            <div class="order-info">
-              <div class="order-name">Pedido #${p.id}</div>
-              <div class="order-meta">${formatPrice(p.total)} · ${new Date(p.created_at).toLocaleDateString('pt-BR')}</div>
-            </div>
-
-            <select class="status-select" onchange="atualizarStatusPedido(${p.id}, this.value)">
-              <option value="Pendente"    ${p.status === 'Pendente'    ? 'selected' : ''}>Pendente</option>
-              <option value="confirmado"  ${p.status === 'confirmado'  ? 'selected' : ''}>Confirmado</option>
-              <option value="enviado"     ${p.status === 'enviado'     ? 'selected' : ''}>Enviado</option>
-              <option value="concluído"   ${p.status === 'concluído'   ? 'selected' : ''}>Concluído</option>
-              <option value="cancelado"   ${p.status === 'cancelado'   ? 'selected' : ''}>Cancelado</option>
-            </select>
-          </div>`).join('');
-      }
-
-      el.innerHTML = html || '<div class="empty-state><h3>Não há nenhum pedido ainda</h3></div>"';
-    } catch(e) {
-      document.getElementById('lista-vendas').innerHTML = '<div class="loading">Erro ao carregar pedidos.</div>';
+    if (!meus.length) {
+      el.innerHTML = '<div class="empty-state"><h3>Você não tem anúncios ainda</h3></div>';
+      return;
     }
-  }
 
-  async function atualizaStatusPedido() {
-    try {
-      await apiFetch(`/pedidos/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({ status })
-      });
+    let html = '';
+    for (const produto of meus) {
+      const pedidos = await apiFetch('/pedidos/produto/' + produto.id);
+      if (!pedidos.length) continue;
 
-      alert('Status atualizado com sucesso!');
-    } catch(e) {
-      alert(e.message);
+      html += `<h3 style="margin:1rem 0 0.5rem;font-size:.95rem;color:#666;">${produto.title}</h3>`;
+      html += pedidos.map(p => `
+        <div class="order-card">
+          <div class="order-img">
+            ${produto.imagens?.[0]?.image_url ? `<img src="${produto.imagens[0].image_url}" alt="">` : '📦'}
+          </div>
+          <div class="order-info">
+            <div class="order-name">Pedido #${p.id} — ${p.comprador?.nome || 'comprador'}</div>
+            <div class="order-meta">${formatPrice(p.total)} · ${new Date(p.created_at).toLocaleDateString('pt-BR')}</div>
+          </div>
+          <select class="results-sort" onchange="atualizarStatusPedido(${p.id}, this.value)">
+            <option value="Pendente"   ${p.status==='Pendente'   ?'selected':''}>Pendente</option>
+            <option value="confirmado" ${p.status==='confirmado' ?'selected':''}>Confirmado</option>
+            <option value="enviado"    ${p.status==='enviado'    ?'selected':''}>Enviado</option>
+            <option value="concluído"  ${p.status==='concluído'  ?'selected':''}>Concluído</option>
+            <option value="cancelado"  ${p.status==='cancelado'  ?'selected':''}>Cancelado</option>
+          </select>
+        </div>`).join('');
     }
+
+    el.innerHTML = html || '<div class="empty-state"><h3>Não há nenhum pedido ainda</h3></div>';
+
+  } catch(e) {
+    el.innerHTML = '<div class="loading">Erro ao carregar pedidos.</div>';
   }
+}
+
+async function atualizarStatusPedido(id, status) {
+  try {
+    await apiFetch(`/pedidos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ status })
+    });
+    alert('Status atualizado!');
+    loadVendas();
+  } catch(e) {
+    alert(e.message);
+  }
+}
+
+async function marcarTodasLidas() {
+  try {
+    await apiFetch('/notificacoes/todas', { method: 'PUT' });
+    loadNotificacoes();
+  } catch(e) {
+    console.error(e);
+  }
+}
 
   loadCompras();
   loadAnuncios();

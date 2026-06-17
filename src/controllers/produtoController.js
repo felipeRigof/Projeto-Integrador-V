@@ -18,6 +18,22 @@ const listarProduto = async (req, res) => {
   }
 };
 
+const listarMeusProdutos = async (req, res) => {
+  try {
+    const produtos = await prisma.produto.findMany({
+      where: { user_id: req.user.id }, // sem filtro de status
+      include: {
+        categoria: true,
+        imagens: true,
+        user: { select: { id: true, nome: true, city: true } }
+      }
+    });
+    return res.status(200).json(produtos);
+  } catch(err) {
+    return res.status(500).json({ error: 'Erro ao listar produtos' });
+  }
+};
+
 const buscarProduto = async (req, res) => {
   const { id } = req.params;
   try {
@@ -134,6 +150,7 @@ const deletarProduto = async(req, res) => {
 module.exports = {
     listarProduto,
     buscarProduto,
+    listarMeusProdutos,
     cadastrarProduto,
     atualizarProduto,
     deletarProduto

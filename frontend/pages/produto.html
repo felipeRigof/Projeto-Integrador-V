@@ -107,40 +107,6 @@
 
   let produtoAtual = null;
 
-async function loadAvaliacoes(vendedor_id) {
-  try {
-    const data = await apiFetch('/avaliacoes/usuario/' + vendedor_id);
-    const el = document.getElementById('lista-avaliacoes');
-
-    if (!data.total) {
-      el.innerHTML = '<p style="color:#aaa;font-size:.88rem;">Nenhuma avaliação ainda.</p>';
-      return;
-    }
-
-    const estrelas = (rating) => '⭐'.repeat(rating) + '☆'.repeat(5 - rating);
-
-    el.innerHTML = `
-      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
-        <span style="font-size:2.5rem;font-weight:700;color:#C4622D;">${data.media}</span>
-        <div>
-          <div style="font-size:1.2rem;">${estrelas(Math.round(data.media))}</div>
-          <div style="font-size:.82rem;color:#aaa;">${data.total} avaliação${data.total > 1 ? 'ões' : ''}</div>
-        </div>
-      </div>
-      ${data.avaliacao.map(a => `
-        <div style="border:1px solid #eee;border-radius:12px;padding:1rem;margin-bottom:.75rem;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
-            <span style="font-weight:500;font-size:.88rem;">${a.reviewer?.nome || 'Usuário'}</span>
-            <span>${estrelas(a.rating)}</span>
-          </div>
-          ${a.comentario ? `<p style="font-size:.85rem;color:#555;margin:0;">${a.comentario}</p>` : ''}
-          <div style="font-size:.75rem;color:#aaa;margin-top:.4rem;">${timeAgo(a.created_at)}</div>
-        </div>`).join('')}`;
-  } catch(e) {
-    document.getElementById('lista-avaliacoes').innerHTML = '<p style="color:#aaa;">Erro ao carregar avaliações.</p>';
-  }
-}
-
   async function loadProduto() {
     try {
       const p = await apiFetch('/produtos/' + id);
@@ -229,6 +195,40 @@ async function loadAvaliacoes(vendedor_id) {
         '<div class="empty-state" style="grid-column:1/-1"><h3>Produto não encontrado</h3><p><a href="index.html">Voltar ao início</a></p></div>';
     }
   }
+
+  async function loadAvaliacoes(vendedor_id) {
+  try {
+    const data = await apiFetch('/avaliacoes/usuario/' + vendedor_id);
+    const el = document.getElementById('lista-avaliacoes');
+
+    if (!data.total) {
+      el.innerHTML = '<p style="color:#aaa;font-size:.88rem;">Nenhuma avaliação ainda.</p>';
+      return;
+    }
+
+    const estrelas = (rating) => '⭐'.repeat(rating) + '☆'.repeat(5 - rating);
+
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+        <span style="font-size:2.5rem;font-weight:700;color:#C4622D;">${data.media}</span>
+        <div>
+          <div style="font-size:1.2rem;">${estrelas(Math.round(data.media))}</div>
+          <div style="font-size:.82rem;color:#aaa;">${data.total} avaliação${data.total > 1 ? 'ões' : ''}</div>
+        </div>
+      </div>
+      ${data.avaliacao.map(a => `
+        <div style="border:1px solid #eee;border-radius:12px;padding:1rem;margin-bottom:.75rem;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
+            <span style="font-weight:500;font-size:.88rem;">${a.reviewer?.nome || 'Usuário'}</span>
+            <span>${estrelas(a.rating)}</span>
+          </div>
+          ${a.comentario ? `<p style="font-size:.85rem;color:#555;margin:0;">${a.comentario}</p>` : ''}
+          <div style="font-size:.75rem;color:#aaa;margin-top:.4rem;">${timeAgo(a.created_at)}</div>
+        </div>`).join('')}`;
+  } catch(e) {
+    document.getElementById('lista-avaliacoes').innerHTML = '<p style="color:#aaa;">Erro ao carregar avaliações.</p>';
+  }
+}
 
   async function loadRelacionados(categoria) {
     try {

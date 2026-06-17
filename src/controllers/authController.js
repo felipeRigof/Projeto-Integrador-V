@@ -32,8 +32,8 @@ const register = async (req, res) => {
             data: {
                 nome,
                 email,
-                password_hash,
                 num_telefone,
+                password_hash,
                 city
             }
         });
@@ -43,7 +43,8 @@ const register = async (req, res) => {
             user: {
                 id: user.id,
                 nome: user.nome,
-                email: user.email
+                email: user.email,
+                city: user.city
             }
         });
     } catch(err) {

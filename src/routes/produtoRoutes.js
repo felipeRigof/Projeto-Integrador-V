@@ -7,10 +7,12 @@ const {
     buscarProduto,
     cadastrarProduto,
     atualizarProduto,
-    deletarProduto
+    deletarProduto,
+    listarMeusProdutos
 } = require('../controllers/produtoController');
 
 router.get('/', listarProduto);
+router.get('/meus', authenticate, listarMeusProdutos);
 router.get('/:id', buscarProduto);
 router.post('/', authenticate, cadastrarProduto);
 router.put('/:id', authenticate, atualizarProduto);

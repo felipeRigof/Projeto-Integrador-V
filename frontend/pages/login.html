@@ -59,6 +59,10 @@
         <label for="senha-cadastro">Senha</label>
         <input type="password" id="senha-cadastro" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
       </div>
+      <div class="field">
+        <label for="cidade-cadastro">Cidade</label>
+        <input type="text" id="cidade" placeholder="Cidade">
+      </div>
       <p class="auth-error" id="error-cadastro"></p>
       <p class="auth-success hidden" id="success-cadastro">Conta criada! Faça login para continuar.</p>
       <button type="submit" class="btn-auth">Criar conta</button>
@@ -129,6 +133,7 @@
     const email        = document.getElementById('email-cadastro').value.trim();
     const password     = document.getElementById('senha-cadastro').value;
     const num_telefone = document.getElementById('telefone').value.trim();
+    const cidade       = document.getElementById('cidade').value.trim();
 
     btn.textContent = 'Criando…'; btn.disabled = true;
 

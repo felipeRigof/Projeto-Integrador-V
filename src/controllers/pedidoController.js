@@ -14,7 +14,7 @@ const criarPedido = async(req, res) => {
 
         if(!produto) {
             return res.status(404).json({error: 'Produto não encontrado'});
-        } else if(produto.user.id === req.user.id) {
+        } else if(produto.user_id === req.user.id) {
             return res.status(400).json({error: 'Você não pode comprar seu prórpio produto!'});
         } else if(produto.status !== 'disponível') {
             return res.status(400).json({error: 'Produto não disponível'});

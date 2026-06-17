@@ -37,14 +37,7 @@
         </label>
         <input type="password" id="senha-login" placeholder="••••••••" autocomplete="current-password">
       </div>
-<<<<<<< HEAD
-      <div class="field">
-        <label for="telefone">Telefone</label>
-        <input type="tel" id="telefone" placeholder="(11) 99999-9999">
-      </div>
-=======
       <p class="auth-error" id="error-login"></p>
->>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
       <button type="submit" class="btn-auth">Entrar</button>
     </form>
 
@@ -57,6 +50,10 @@
       <div class="field">
         <label for="email-cadastro">E-mail</label>
         <input type="email" id="email-cadastro" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" placeholder="(11) 99999-9999">
       </div>
       <div class="field">
         <label for="senha-cadastro">Senha</label>
@@ -128,31 +125,18 @@
     const okEl  = document.getElementById('success-cadastro');
     errEl.textContent = ''; okEl.classList.add('hidden');
 
-<<<<<<< HEAD
     const nome         = document.getElementById('nome').value.trim();
     const email        = document.getElementById('email-cadastro').value.trim();
     const password     = document.getElementById('senha-cadastro').value;
     const num_telefone = document.getElementById('telefone').value.trim();
-=======
-    const senha = document.getElementById('senha-cadastro').value;
-    if (senha.length < 8) { errEl.textContent = 'A senha deve ter pelo menos 8 caracteres.'; return; }
->>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
 
     btn.textContent = 'Criando…'; btn.disabled = true;
 
     try {
       await apiFetch('/auth/register', {
         method: 'POST',
-<<<<<<< HEAD
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, email, password, telefone })
-=======
-        body: JSON.stringify({
-          nome: document.getElementById('nome').value.trim(),
-          email: document.getElementById('email-cadastro').value.trim(),
-          password: senha
-        })
->>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
       });
       okEl.classList.remove('hidden');
       document.getElementById('email-login').value = document.getElementById('email-cadastro').value;

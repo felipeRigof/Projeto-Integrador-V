@@ -10,6 +10,7 @@ const produtoRoutes = require('./routes/produtoRoutes');
 const pedidoRoutes = require('./routes/pedidoRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const notificacaoRoutes = require('./routes/notificacaoRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use('/produtos', produtoRoutes);
 app.use('/pedidos', pedidoRoutes);
 app.use('/review', reviewRoutes);
 app.use('/notificacoes', notificacaoRoutes);
+app.use('/upload', uploadRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'API Brechó Solidário funcionando! 🧺' });

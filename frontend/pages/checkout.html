@@ -159,6 +159,27 @@
     <div class="logo-icon">🪡</div>
     <span class="logo-text">Gari<span>mpo</span></span>
   </a>
+
+  <div class="header-actions">
+    <button class="icon-btn" id="btn-notificacao" onclick="toggleNotificacoes()" title="Notificações">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="badge" id="badge-notificacao" style="display:none;">0</span>
+    </button>
+
+<!-- dropdown de notificações -->
+    <div class="notif-dropdown" id="notif-dropdown" style="display:none;">
+      <div class="notif-header">
+        <span>Notificações</span>
+        <button onclick="marcarTodasLidas()">Marcar todas como lidas</button>
+      </div>
+      <div id="notif-lista">
+        <div class="notif-empty">Nenhuma notificação</div>
+      </div>
+    </div>
+  </div>
 </header>
 
 <!-- CHECKOUT -->

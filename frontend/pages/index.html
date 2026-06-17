@@ -27,6 +27,25 @@
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
       </button>
+
+      <button class="icon-btn" id="btn-notificacao" title="Notificações" onclick="toggleNotificacoes()">
+        <svg widht="16" height="16" fill="none" stroke="currentColor" stroke-widht="2" viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <span class="badge" id="badge-notificacao" style="display: none;">0</span>
+      </button>
+
+      <!-- dropdown de notificações -->
+    <div class="notif-dropdown" id="notif-dropdown" style="display:none;">
+      <div class="notif-header">
+        <span>Notificações</span>
+        <button onclick="marcarTodasComoLida()">Marcar todas como lidas</button>
+      </div>
+      <div id="notif-lista">
+        <div class="notif-empty">Nenhuma notificação</div>
+      </div>
+    </div>
       <a href="anunciar.html" id="btn-sell" class="btn-sell">+ Vender</a>
     </div>
   </div>
@@ -72,15 +91,10 @@
     <button class="carousel-btn prev" onclick="scrollCarousel(this,-1)">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-<<<<<<< HEAD
-    <div class="carousel-track">
+    <div class="carousel-track" id="track-destaques">
 
     </div>
     <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
-=======
-    <div class="carousel-track" id="track-destaques"><div class="loading">Carregando…</div></div>
-    <button class="carousel-btn next" onclick="scrollCarousel(this,1)">
->>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
@@ -103,15 +117,10 @@
     <button class="carousel-btn prev" onclick="scrollCarousel(this,-1)">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-<<<<<<< HEAD
-    <div class="carousel-track">
+    <div class="carousel-track" id="track-novidades">
 
     </div>
     <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">
-=======
-    <div class="carousel-track" id="track-novidades"><div class="loading">Carregando…</div></div>
-    <button class="carousel-btn next" onclick="scrollCarousel(this,1)">
->>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
@@ -135,9 +144,6 @@
   <p>© 2025 Garimpo — Marketplace de brechó. Feito com ♻️ no Brasil.</p>
 </footer>
 
-<<<<<<< HEAD
-<script src="../js/main.js"></script>
-=======
 <script src="../js/api.js"></script>
 <script>
   const COLORS = ['#F0E6D3','#E8D5C4','#D9E8D3','#E8D9D9','#DDD9E8','#E8E4D3','#F2EAD3','#D3E8F2','#F2D3D3','#D3F2E0'];
@@ -197,7 +203,7 @@
   });
 
   loadProdutos();
+  initPolling();
 </script>
->>>>>>> 045a6600dcec5f2c00f78dddf9de4b293c6e1273
 </body>
 </html>

@@ -59,6 +59,8 @@ function initHeader() {
     if (sellBtn) {
       sellBtn.href = 'login.html';
     }
+
+    initPolling();
   }
 
   // Botão de logout (aparece no header quando logado)
@@ -107,6 +109,133 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initHeader();
 });
+
+// ── NOTIFICAÇÕES (Dropdown) ─────────────────────────────────
+
+function toggleNotificacoes() {
+  const dropdown = document.getElementById('notif-dropdown');
+  if(!dropdown) return;
+  const aberto = dropdown.style.display === 'block';
+  dropdown.style.display = aberto ? 'none' : 'block';
+  if(!aberto) renderNotificacoes();
+}
+
+async function renderNotificacoes() {
+  if(!isLoggedIn()) return;
+  const lista = document.getElementById('notif-lista');
+  if(!lista) return;
+
+  try {
+    const notificacao = await apiFetch('/notificacoes');
+
+    if(!notificacao.length) {
+      lista.innerHTML = '<div class="notif-empty">Nenhuma notificação</div>'
+      return;
+    }
+
+    lista.innerHTML = notificacao.map(n => `
+      <div class="notif-item ${n.lido ? '' : 'nao-lida'}" onclick="lerNotificacao(${n.id})">
+        <div class="notif-content" onclick="lerNotificacao(${n.id})">
+          <div class="notif-msg">${n.mensagem}</div>
+          <div class="notif-time">${timeAgo(n.created_at)}</div>
+        </div>
+
+        <button class="notif=delete-btn" onclick="deletaNotificacao(${n.id}, event)" title="Excluir">✕</button>
+      </div>  
+    `).join('');
+  } catch(err) {
+    lista.innerHTML = '<div class="notif-empty">Erro ao carregar notificações</div>'
+  }
+}
+
+async function lerNotificacao(id) {
+  try {
+    await apiFetch(`/notificacoes/${id}`, {
+      method: 'PUT'
+    });
+
+    verificaNotificacao();
+    renderNotificacoes();
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function marcarTodasComoLida() {
+  try {
+    await apiFetch('/notificacoes/todas', {
+      method: 'PUT'
+    });
+    verificaNotificacao();
+    renderNotificacoes();
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function deletaNotificacao(id) {
+  event.stopPropagation();
+
+  try {
+    await apiFetch(`/notificacoes/${id}`, {
+      method: 'DELETE'
+    });
+
+    document.getElementById(`notif-${id}`)?.remove();
+    verificaNotificacao();
+
+    const lista = document.getElementById('notif-lista');
+    if(lista && !lista.querySelector('.notif-item')) {
+      lista.innerHTML = '<div class="notif-empty">Nenhuma notificação</div>';
+    }
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+document.addEventListener('click', e => {
+  const dropdown = document.getElementById('notif-dropdown');
+  const btn = document.getElementById('btn-notificacao');
+  if(dropdown && btn && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+    dropdown.style.display = 'none';
+  }
+});
+
+// ── NOTIFICAÇÕES (Polling) ─────────────────────────────────
+
+let badgeNotificacao = null;
+
+function atualizaBadgeNotificacao(quantidade) {
+  if(!badgeNotificacao) {
+    badgeNotificacao = document.getElementById('badge-notificacao');
+  }
+
+  if(!badgeNotificacao) return;
+
+  if(quantidade > 0) {
+    badgeNotificacao.textContent = quantidade;
+    badgeNotificacao.style.display = 'flex';
+  } else {
+    badgeNotificacao.style.display = 'none';
+  }
+}
+
+async function verificaNotificacao() {
+  if(!isLoggedIn()) return;
+
+  try {
+    const notificacoes = await apiFetch('/notificacoes');
+    const naoLida = notificacoes.filter(n => !n.lido);
+    atualizaBadgeNotificacao(naoLida.length);
+  } catch(err) {
+    console.log('Erro ao verificar notificações: ', err);
+  }
+}
+
+function initPolling() {
+  verificaNotificacao();
+  setInterval(verificaNotificacao, 10000);
+}
 
 // ── SACOLA (localStorage) ─────────────────────────────────
 function getSacola() {

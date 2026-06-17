@@ -43,6 +43,110 @@ header {
   gap: 1.5rem;
 }
 
+/*========== Dropdown da Notificação ==========*/
+.notif-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 120px;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  font-weight: 500;
+}
+
+.notif-header button {
+  background: none;
+  border: none;
+  color: #C4622D;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.notif-item {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.notif-item:hover { background: #faf8f5; }
+
+.notif-item.nao-lida { background: #fdf6f0; }
+
+.notif-item .notif-msg { color: #333; margin-bottom: 0.25rem; }
+
+.notif-item .notif-time { color: #aaa; font-size: 0.75rem; }
+
+.notif-empty {
+  padding: 2rem;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.notif-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.notif-content {
+  flex: 1;
+  cursor: pointer;
+}
+
+.notif-delete-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.notif-delete-btn:hover {
+  background: #fee2e2;
+  color: #c0392b;
+}
+
+/* ====================================== */
+
+/*========== ATUALIZA STATUS PEDIDO ==========*/
+
+.status-select {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  background: white;
+  color: #333;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #C4622D;
+}
+
+/* ============================================= */
+
 .logo {
   display: flex;
   align-items: center;

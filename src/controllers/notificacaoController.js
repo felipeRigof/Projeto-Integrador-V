@@ -4,10 +4,11 @@ const listaNotificacao = async (req, res) => {
     try {
         const notificacao = await prisma.notificacao.findMany({
             where: {
-                user_id: req.user.id,
-                order_by: {
-                    created_at: 'desc'
-                }
+                user_id: req.user.id
+            },
+            
+            orderBy: {
+                created_at: 'desc'
             }
         });
 
@@ -26,8 +27,11 @@ const marcaComoLida = async (req, res) => {
     try {
         const notificacao = await prisma.notificacao.update({
             where: {
-                id: parseInt(id),
-                data: 'lido'
+                id: parseInt(id)
+            },
+
+            data: {
+                lido: true
             }
         });
 
@@ -43,7 +47,7 @@ const marcaTodasComoLida = async (req, res) => {
         const notificacao = await prisma.notificacao.updateMany({
             where: {
                 user_id: req.user.id,
-                lido: 'false'
+                lido: false
             },
 
             data: {

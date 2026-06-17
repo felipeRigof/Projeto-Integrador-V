@@ -6,11 +6,13 @@ const {
     criarPedido,
     listarPedido,
     buscarPedido,
-    atualizarStatus
+    atualizarStatus,
+    listaPedidosPorProduto
 } = require('../controllers/pedidoController');
 
 router.post('/', authenticate, criarPedido);
 router.get('/', authenticate, listarPedido);
+router.get('/produto/:produto_id', authenticate, listaPedidosPorProduto);
 router.get('/:id', authenticate, buscarPedido);
 router.put('/:id', authenticate, atualizarStatus);
 

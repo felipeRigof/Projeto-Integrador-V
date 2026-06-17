@@ -15,6 +15,25 @@
     <div class="logo-icon">🪡</div>
     <span class="logo-text">Gari<span>mpo</span></span>
   </a>
+
+  <button class="icon-btn" id="btn-notificacao" onclick="toggleNotificacoes()" title="Notificações">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+    <span class="badge" id="badge-notificacao" style="display:none;">0</span>
+  </button>
+
+<!-- dropdown de notificações -->
+  <div class="notif-dropdown" id="notif-dropdown" style="display:none;">
+    <div class="notif-header">
+      <span>Notificações</span>
+      <button onclick="marcarTodasLidas()">Marcar todas como lidas</button>
+    </div>
+    <div id="notif-lista">
+      <div class="notif-empty">Nenhuma notificação</div>
+    </div>
+  </div>
 </header>
 
 <main class="form-main">
@@ -69,9 +88,8 @@
             <select id="condicao">
               <option value="" disabled selected>Selecione</option>
               <option>Novo</option>
-              <option>Ótimo estado</option>
-              <option>Bom estado</option>
-              <option>Com marcas de uso</option>
+              <option>Seminovo</option>
+              <option>Usado</option>
             </select>
           </div>
         </div>
@@ -204,7 +222,26 @@
           categoria_id: parseInt(categoria_id)
         })
       });
-      window.location.href = `produto.html?id=${data.produto.id}`;
+
+      const produtoId = data.produto.id;
+
+      const inputs = document.querySelectorAll('input[type="file"]');
+      for(const input of inputs) {
+        const formData = new FormData();
+        formData.append('imagem', input.files[0]);
+
+        await fetch(`http://localhost:3000/upload/${produtoId}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+
+          body: formData
+        });
+      }
+
+      window.location.href = `produto.html?id=${produtoId}`;
+
     } catch(err) {
       errEl.textContent = err.message;
       btn.textContent = 'Publicar anúncio'; btn.disabled = false;
